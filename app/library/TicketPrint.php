@@ -10,7 +10,6 @@ class TicketPrint
     public function printCompanyHead(CustomPdf $pdf, $ticketId)
     {
         $ticket = Ticket::find($ticketId);
-        //$company = $ticket->trip->company;
 
         $ldate = date('Y-m-d H:i:s');
         $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));

@@ -16,7 +16,6 @@ class UsersTableSeeder extends Seeder
         	'email'    => 'algrims@gmail.com',
         	'password' => bcrypt('123456'),
             'role' => 1,
-            'company_id' => 1,
         	]);
         $admin->save();
     }

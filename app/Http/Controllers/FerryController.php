@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Ferry;
-use App\Model\Company;
 use Uuid;
 use App\Enumeration\RoleType;
 use Auth;
@@ -17,8 +16,6 @@ class FerryController extends Controller
     }
 
     public function add() {
-    	//$companies = Company::all();
-
     	return view('ferry.add');
     }
 

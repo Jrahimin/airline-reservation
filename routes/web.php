@@ -39,12 +39,12 @@ Route::post('/user/delete', 'UserController@delete')->name('delete_user')->middl
 
 
 // Port
-Route::get('/port/all', 'PortController@all')->name('view_all_port')->middleware('admin');
-Route::get('/port/add', 'PortController@add')->name('add_port')->middleware('admin');
-Route::post('/port/add', 'PortController@addPost')->name('add_port_post')->middleware('admin');
-Route::get('/port/edit/{port}', 'PortController@edit')->name('edit_port')->middleware('admin');
-Route::post('/port/edit/{port}', 'PortController@editPost')->name('edit_port_post')->middleware('admin');
-Route::post('/port/delete', 'PortController@delete')->name('delete_port')->middleware('admin');
+Route::get('/city/all', 'PortController@all')->name('view_all_port')->middleware('admin');
+Route::get('/city/add', 'PortController@add')->name('add_port')->middleware('admin');
+Route::post('/city/add', 'PortController@addPost')->name('add_port_post')->middleware('admin');
+Route::get('/city/edit/{port}', 'PortController@edit')->name('edit_port')->middleware('admin');
+Route::post('/city/edit/{port}', 'PortController@editPost')->name('edit_port_post')->middleware('admin');
+Route::post('/city/delete', 'PortController@delete')->name('delete_port')->middleware('admin');
 
 
 // Passenger Type

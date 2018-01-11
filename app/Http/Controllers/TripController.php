@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Model\Trip;
 use App\Model\Ferry;
 use App\Model\Port;
-use App\Model\Company;
 use App\Model\PassengerType;
 use App\Model\Price;
 use App\Enumeration\RoleType;
@@ -148,17 +147,6 @@ class TripController extends Controller
             return response()->json(['success' => false, 'message' => 'Item not found.']);
         }
 
-        if (Auth::user()->role == RoleType::$COMPANY_ADMIN) {
-            if (Auth::user()->company_id == $trip->company_id) {
-                $trip->prices()->delete();
-    			$trip->delete();
-
-                return response()->json(['success' => true, 'message' => 'Successfully Deleted.']);
-            } else {
-                return response()->json(['success' => false, 'message' => 'Unauthorized']);
-            }
-        }
-
         $trip->prices()->delete();
 		$trip->delete();
         return response()->json(['success' => true, 'message' => 'Successfully Deleted.']);
@@ -175,14 +163,8 @@ class TripController extends Controller
     }
 
     public function editPost(Request $request, Trip $trip) {
-    	if (Auth::user()->role == RoleType::$COMPANY_ADMIN &&
-            $trip->company_id != Auth::user()->company_id) {
-
-            abort('401', 'unauthorized');
-        }
 
     	$rules = [
-    			'company_id' => 'required',
     			'ferry_id' => 'required',
     			'departure_port_id' => 'required',
     			'destination_port_id' => 'required',
@@ -197,13 +179,6 @@ class TripController extends Controller
         $dateTime = $request->departure_date. ' '.$request->departure_time;
         $dateTime = date("Y-m-d H:i:s", strtotime($dateTime));
 
-		if (Auth::user()->role == RoleType::$COMPANY_ADMIN &&
-            $request->company_id != Auth::user()->company_id) {
-
-            abort('401', 'unauthorized');
-        }
-
-		$trip->company_id = $request->company_id;
 		$trip->ferry_id = $request->ferry_id;
 		$trip->ferry_remaining_seat = $request->available_seat;
 		$trip->departure_date_time = $dateTime;

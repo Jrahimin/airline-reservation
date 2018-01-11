@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-primary">
-                <div class="panel-heading">Add Port</div>
+                <div class="panel-heading">Add City</div>
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('add_port_post') }}">
                         {{ csrf_field() }}

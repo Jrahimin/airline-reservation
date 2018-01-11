@@ -64,28 +64,6 @@
                             </div>
                         </div>
 
-                        @if (Auth::user()->role == RoleType::$ADMIN)
-                            <div id="form-group-company" class="form-group{{ $errors->has('company') ? ' has-error' : '' }} hide">
-                                <label for="company" class="col-md-4 control-label">Select Company</label>
-
-                                <div class="col-md-6">
-                                	<select class="form-control" name="company">
-                                		<option value="">Select Company</option>
-                                		
-                                		@foreach($companies as $company)
-                                			<option value="{{ $company->id }}" {{ $user->company_id == $company->id ? 'selected' : '' }}>{{ $company->name }}</option>
-                                		@endforeach
-                                	</select>
-
-                                    @if ($errors->has('company'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('company') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                        @endif
-
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
@@ -101,24 +79,3 @@
     </div>
 </div>
 @endsection
-
-@section('additionalJS')
-<script type="text/javascript">
-    $(function() {
-        @if (Auth::user()->role == RoleType::$ADMIN)
-            $('#role').change(function() {
-            	var val = $(this).val();
-
-            	if (val == '{{ RoleType::$COMPANY_ADMIN }}' || val == '{{ RoleType::$COMPANY_STAFF }}') {
-
-            		$('#form-group-company').removeClass('hide');
-            	} else {
-            		$('#form-group-company').addClass('hide');
-            	}
-            });
-
-            $('#role').trigger('change');
-        @endif
-    });
-</script>
-@stop

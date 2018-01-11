@@ -14,7 +14,6 @@ class DeleteingFieldFromFerriesTable extends Migration
     public function up()
     {
         Schema::table('ferries', function (Blueprint $table) {
-            $table->dropColumn('company_name');
             $table->dropColumn('contact');
             $table->dropColumn('size');
             $table->dropColumn('address');
@@ -30,7 +29,6 @@ class DeleteingFieldFromFerriesTable extends Migration
     public function down()
     {
         Schema::table('ferries', function (Blueprint $table) {
-            $table->string('company_name');
             $table->string('contact');
             $table->tinyInteger('size');
             $table->string('address');

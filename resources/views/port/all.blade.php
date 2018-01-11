@@ -4,7 +4,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 text-right">
-			<a href="{{ route('add_port') }}" class="btn btn-primary">Add New Port</a>
+			<a href="{{ route('add_port') }}" class="btn btn-primary">Add New City</a>
 		</div>
 	</div>
 

@@ -23,10 +23,6 @@ class Trip extends Model
     	return $this->belongsTo('App\Model\Port', 'destination_port_id', 'id');
     }
 
-    public function company() {
-        return $this->belongsTo('App\Model\Company');
-    }
-
     public function prices() {
         return $this->hasMany('App\Model\Price')->with('passenger_type');
     }
