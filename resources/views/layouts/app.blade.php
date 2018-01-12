@@ -12,14 +12,23 @@ use App\Enumeration\RoleType;
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Ferry Ticketing System') }}</title>
+    <title>{{ config('app.name', 'Airlines Ticketing System') }}</title>
 
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-theme.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
-@yield('additionalCSS')
+    <!-- Jquery Ui -->
+    <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet" />
+
+    <!-- Dropzone css -->
+    <link href={{ asset('css/dropzone.css')}} rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/datatables.min.css') }}"/>
+
+    <link rel="stylesheet" href="{{ asset('css/AdminLTE.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/skins/skin-blue.min.css') }}">
+
 
 <!-- Scripts -->
     <script>
@@ -28,101 +37,177 @@ use App\Enumeration\RoleType;
         ]) !!};
     </script>
 </head>
-<body>
-<div id="app">
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
 
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header class="main-header">
+        <!-- Logo -->
+        <a class="logo" href="{{ url('/') }}">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>Copmany Name</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><img style="border-radius: 50px;padding:5px;" src="{{ asset('images/logo.png') }}" height="50px" width="50px"> <b>Airlines Company</b> Admin</span>
+        </a>
 
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <img class="nav-logo" alt="Brand" src="{{ asset('images/logo.png') }}" height="25px">
-                </a>
-            </div>
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
 
+            <a href="#" class="navbar-brand">Airlines</a>
 
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    @if(Auth::check() && Auth::user()->role == RoleType::$ADMIN)
-                        <li><a href="{{route('view_all_user')}}"><i class="fa fa-users" aria-hidden="true"></i> Users</a></li>
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
 
-                        <li><a href="{{route('view_all_port')}}"><i class="fa fa-anchor" aria-hidden="true"></i> Port</a></li>
-                        <li><a href="{{route('view_all_passenger_type')}}"><i class="fa fa-street-view" aria-hidden="true"></i> Passenger Type</a></li>
-                        <li><a href="{{route('view_all_ferry')}}"><i class="fa fa-ship" aria-hidden="true"></i> Ferry</a></li>
-                        <li><a href="{{route('view_all_trip')}}"><i class="fa fa-plane" aria-hidden="true"></i> Trip</a></li>
-                        <li><a href="{{route('all_order')}}"><i class="fa fa-first-order" aria-hidden="true"></i> Order</a></li>
-                        <li><a href="{{route('all_ticket')}}"><i class="fa fa-ticket" aria-hidden="true"></i> Ticket</a></li>
-                    @endif
-
-                    @if(Auth::check() && Auth::user()->role == RoleType::$COMPANY_ADMIN)
-                        <li><a href="{{route('view_all_user')}}"><i class="fa fa-users" aria-hidden="true"></i> Users</a></li>
-
-                        <li><a href="{{route('view_all_ferry')}}"><i class="fa fa-ship" aria-hidden="true"></i> Ferry</a></li>
-
-                        <li><a href="{{route('view_all_trip')}}"><i class="fa fa-plane" aria-hidden="true"></i> Trip</a></li>
-                        <li><a href="{{route('all_order')}}"><i class="fa fa-first-order" aria-hidden="true"></i> Order</a></li>
-                        <li><a href="{{route('all_ticket')}}"><i class="fa fa-ticket" aria-hidden="true"></i> Ticket</a></li>
-
-                        <li><a href="{{route('edit_company', ['company' => Auth::user()->company_id])}}"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a></li>
-                    @endif
-
-                    @if(Auth::check() && Auth::user()->role == RoleType::$COMPANY_STAFF)
-                        <li><a href="{{route('view_all_ferry')}}"><i class="fa fa-ship" aria-hidden="true"></i> Ferry</a></li>
-                        <li><a href="{{route('view_all_trip')}}"><i class="fa fa-plane" aria-hidden="true"></i> Trip</a></li>
-                        <li><a href="{{route('all_order')}}"><i class="fa fa-first-order" aria-hidden="true"></i> Order</a></li>
-                        <li><a href="{{route('all_ticket')}}"><i class="fa fa-ticket" aria-hidden="true"></i> Ticket</a></li>
-                    @endif
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="{{ route('register') }}">Register</a></li>
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{{ asset('images/profile.png') }}" class="user-image" alt="User Image">
+                            <span class="hidden-xs">{{ Auth::user()->name }}</span>
+                        </a>
 
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Edit Profile</a></li>
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="{{ asset('images/profile.png') }}" class="img-circle" alt="User Image">
+                                <p>
+                                    {{ Auth::user()->name }}
+                                    <small>Member since {{ gmdate("F d, Y",strtotime(\Illuminate\Support\Facades\Auth::user()->created_at)) }}</small>
+                                </p>
+                            {{--</li>--}}
+
+                            <!-- Menu Body -->
+                            <!-- <li class="user-body">
+
+                            </li> -->
+
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="{{ route('edit_user',["user"=>\Illuminate\Support\Facades\Auth::User()->id]) }}" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+
+                                <div class="pull-right">
+                                    <a href="#" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">Sign out</a>
+                                    <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}"> </form>
+                                    {{--<a href="{{ route('change_settings') }}"><span class="hidden-xs"><i class="fa fa-cog fa-spin fa-fw margin-bottom"></i></span></a>--}}
+
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    @yield('content')
-</div>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="{{ asset('images/profile.png') }}" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>{{ Auth::user()->name }}</p>
+                    <p class="text-muted">Airlines</p>
+                </div>
+            </div>
+
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" data-widget="tree">
+                {{--<li class="header">MAIN NAVIGATION</li>--}}
+                @role('admin'))
+                    <li><a href="{{route('view_all_user')}}"><i class="fa fa-users" aria-hidden="true"></i> Users</a></li>
+
+                    <li><a href="{{route('view_all_port')}}"><i class="fa fa-anchor" aria-hidden="true"></i> Port</a></li>
+                    <li><a href="{{route('view_all_passenger_type')}}"><i class="fa fa-street-view" aria-hidden="true"></i> Passenger Type</a></li>
+                    <li><a href="{{route('view_all_ferry')}}"><i class="fa fa-ship" aria-hidden="true"></i> Ferry</a></li>
+                    <li><a href="{{route('view_all_trip')}}"><i class="fa fa-plane" aria-hidden="true"></i> Trip</a></li>
+                    <li><a href="{{route('all_order')}}"><i class="fa fa-first-order" aria-hidden="true"></i> Order</a></li>
+                    <li><a href="{{route('all_ticket')}}"><i class="fa fa-ticket" aria-hidden="true"></i> Ticket</a></li>
+                @endrole
+            </ul>
+        </section>
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                @yield('pageTitle')
+            </h1>
+
+            @yield('breadcrumbs')
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            @yield('content')
+        </section>
+    </div>
+
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 0.3.0
+        </div>
+
+        <strong>Copyright &copy; 2017-{{date('Y')}} <a href="#">Grims Technologies</a>.</strong> All rights reserved.
+    </footer>
+</div> <!-- ./wrapper -->
 
 <!-- Scripts -->
-<script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+<!-- JS Scripts -->
+
+<!--   Core JS Files   -->
+<script src="{{ asset('js/jquery.min.js')  }}" type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset('js/jquery-ui.min.js') }}" type="text/javascript" charset="utf-8"></script>
+<script src="{{ asset("js/tag-it.js")}}" type="text/javascript" charset="utf-8"></script>
+<script src={{ asset('js/bootstrap.min.js')}} type="text/javascript"></script>
+
+<!-- Admin LTE -->
+<script src="{{ asset('js/adminlte.js') }}"></script>
+
+<!-- Chart JS -->
+<script src = "{{asset('js/Chart.min.js')}}" type="text/javascript" charset="UTF-8"></script>
+
+
+<!-- Data table -->
+<script type="text/javascript" src="{{ asset('DataTables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset("DataTables/mark.min.js") }}"></script>
+<script type="text/javascript" src="{{ asset("js/datatables.mark.js") }}"></script>
+<!-- Select 2 -->
+<script src="{{ asset('js/select2.min.js') }}"></script>
+
+<!-- Bootstrap DatePicker JS -->
+<script src={{ asset('js/bootstrap-datepicker.js')}} type="text/javascript"></script>
+
+<!-- Token Input js -->
+<script src={{ asset('js/jquery.tokeninput.js')}}></script>
+
+<!--  Checkbox, Radio & Switch Plugins -->
+<script src={{ asset('js/bootstrap-checkbox-radio-switch.js')}}></script>
+
+<!--  Dropzone ZS -->
+<script src={{ asset('js/dropzone.js')}}></script>
+
+<!--  Charts Plugin -->
+
+<!--  Notifications Plugin    -->
+<script src={{ asset('js/bootstrap-notify.js')}}></script>
+
+<!-- Random Color -->
+<script src={{ asset('js/randomColor.js')}}></script>
+
+
 <script type="text/javascript">
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();

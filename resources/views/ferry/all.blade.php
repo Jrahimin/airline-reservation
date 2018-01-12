@@ -26,15 +26,15 @@
         		</thead>
 				
 				<tbody>
-					@foreach ($ferries as $ferry)
+					@foreach ($airplanes as $airplane)
 						<tr>
-							<td><img class="img-circle" src="{{ asset($ferry->image_url) }}" height="50px" width="50px"></td>
-							<td>{{ $ferry->name }}</td>
-							<td>{{ $ferry->captain_name }}</td>
-							<td>{{ $ferry->number_of_seat }}</td>
-							<td>{{ $ferry->number_of_crew }}</td>
+							<td><img class="img-circle" src="{{ asset($airplane->image_url) }}" height="50px" width="50px"></td>
+							<td>{{ $airplane->name }}</td>
+							<td>{{ $airplane->captain_name }}</td>
+							<td>{{ $airplane->number_of_seat }}</td>
+							<td>{{ $airplane->number_of_crew }}</td>
 							<td>
-								@if($ferry->status == 1)
+								@if($airplane->status == 1)
 									<span class="label label-success">Active</span>
 								@else
 									<span class="label label-danger">Deactive</span>
@@ -46,8 +46,8 @@
 										<span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
 									</button>
 									<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-										<li><a href="{{ route('edit_ferry', ['ferry' => $ferry->id]) }}">Edit</a></li>
-										<li><a class="delete" data-id="{{ $ferry->id }}" data-toggle="modal" data-target="#deleteModal">Delete</a></li>
+										<li><a href="{{ route('edit_ferry', ['ferry' => $airplane->id]) }}">Edit</a></li>
+										<li><a class="delete" data-id="{{ $airplane->id }}" data-toggle="modal" data-target="#deleteModal">Delete</a></li>
 									</ul>
 								</div>
 							</td>
@@ -56,7 +56,7 @@
 				</tbody>
 			</table>
 
-			<div class="pagination"> {{ $ferries->links() }} </div>
+			<div class="pagination"> {{ $airplanes->links() }} </div>
         </div>
     </div>
 </div>

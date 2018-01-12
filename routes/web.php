@@ -18,10 +18,10 @@ use Spatie\Permission\Models\Permission;
 
 Auth::routes();
 
-Route::get('/home', ['as'=>'home', 'uses' => 'HomeController@index']);
+Route::get('/home', ['as'=>'home', 'uses' => 'HomeController@index'])->middleware('admin');
 
 // Home
-Route::get('/', 'HomeController@index')->name('index');
+Route::get('/', 'HomeController@index')->name('index')->middleware('admin');
 Route::get('/trip/search', 'HomeController@search')->name('search_trip');
 
 
@@ -57,12 +57,12 @@ Route::post('/passenger-type/delete', 'PassengerTypeController@delete')->name('d
 
 
 // Ferry
-Route::get('/ferry/all', 'FerryController@all')->name('view_all_ferry')->middleware('company_user');
-Route::get('/ferry/add', 'FerryController@add')->name('add_ferry')->middleware('company_user:admin');
-Route::post('/ferry/add', 'FerryController@addPost')->name('add_ferry_post')->middleware('company_user:admin');
-Route::get('/ferry/edit/{ferry}', 'FerryController@edit')->name('edit_ferry')->middleware('company_user:admin');
-Route::post('/ferry/edit/{ferry}', 'FerryController@editPost')->name('edit_ferry_post')->middleware('company_user:admin');
-Route::post('/ferry/delete', 'FerryController@delete')->name('delete_ferry')->middleware('company_user:admin');
+Route::get('/airplane/all', 'FerryController@all')->name('view_all_ferry')->middleware('company_user');
+Route::get('/airplane/add', 'FerryController@add')->name('add_ferry')->middleware('company_user:admin');
+Route::post('/airplane/add', 'FerryController@addPost')->name('add_ferry_post')->middleware('company_user:admin');
+Route::get('/airplane/edit/{ferry}', 'FerryController@edit')->name('edit_ferry')->middleware('company_user:admin');
+Route::post('/airplane/edit/{ferry}', 'FerryController@editPost')->name('edit_ferry_post')->middleware('company_user:admin');
+Route::post('/airplane/delete', 'FerryController@delete')->name('delete_ferry')->middleware('company_user:admin');
 
 
 // Trip
@@ -90,6 +90,8 @@ Route::post('/order/delete', 'OrderController@delete')->name('delete_order')->mi
 Route::get('/order/view_ticket/{order}', 'TicketObserveController@getTicketForOrder')->name('view_ticket')->middleware('company_user');
 Route::get('/order/print/{order}', 'OrderController@orderPrint')->name('order_print')->middleware('company_user');
 Route::get('/trip/view_order/{trip}', 'OrderController@viewTripOrder')->name('view_order')->middleware('company_user');
+
+
 
 
 //promona routes 

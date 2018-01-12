@@ -97,12 +97,12 @@ class FerryController extends Controller
     public function delete(Request $request) {
         $id = $request->id;
 
-        $ferry = Ferry::where('id', $id)->first();
+        $airplane = Ferry::where('id', $id)->first();
 
-        if (!$ferry) {
+        if (!$airplane) {
             return response()->json(['success' => false, 'message' => 'Item not found.']);
         }
-        $ferry->delete();
+        $airplane->delete();
 
         return response()->json(['success' => true, 'message' => 'Successfully Deleted.']);
     }
