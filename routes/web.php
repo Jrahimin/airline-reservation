@@ -92,27 +92,17 @@ Route::get('/order/print/{order}', 'OrderController@orderPrint')->name('order_pr
 Route::get('/trip/view_order/{trip}', 'OrderController@viewTripOrder')->name('view_order')->middleware('company_user');
 
 
+//promona routes 
+//Roles
+Route::get('/role','RoleController@createRoles')->middleware('permission:create roles');
+Route::post('/role/create','RoleController@storeRoles')->middleware('permission:create roles')->name('role_create');
+Route::delete('/role/delete/{id}','RoleController@deleteRole')->middleware('permission:delete roles')->name('role_delete');
+Route::get('/role/details/{id}','RoleController@viewRoleDetails')->middleware('permission:create roles')->name('role_details');
+Route::get('/role/edit/{id}','RoleController@editRole')->middleware('permission:edit roles')->name('role_edit');
+Route::post('/role/edit/{role}','RoleController@editRoleStore')->middleware('permission:edit roles')->name('role_edit_store');
+Route::post('/role/remove/user/{role}','RoleController@removeUser')->middleware('permission:edit role')->name('remove_role_user');
+Route::get('/role/all','RoleController@viewRoles')->middleware('permission:view all roles')->name('view_all_roles');
+Route::get('/role/assignment','RoleController@assignRoles')->middleware('permission:assign roles');
+Route::post('/role/assignment/store','RoleController@storeAssignedRoles')->middleware('permission:assign roles')->name('role_assignment_store');
 
 
-
-
-
-
-
-
-
-//
-
-Route::get('/role',function (){
-    $permissions=Permission::all();
-   return view('create',compact('permissions')) ;
-});
-Route::post('/role/create',function (Request $request){
-    $input['name']=$request->name;
-    $input['guard_name']='web';
-
-    $role=Role::create($input);
-    $role->givePermissionTo($request->permission);
-
-
-})->name('role_create');
