@@ -1,9 +1,5 @@
 <?php
 
-
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +10,8 @@ use Spatie\Permission\Models\Permission;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 
 Auth::routes();
@@ -30,12 +28,12 @@ Route::get('/booking/passenger-details', 'TicketBookingController@passengerDetai
 Route::post('/booking/passenger-details/post', 'TicketBookingController@passengerDetailsPost')->name('passenger_details_post');
 
 // Users
-Route::get('/user/all', 'UserController@all')->name('view_all_user')->middleware('company_user');
-Route::get('/user/add', 'UserController@add')->name('add_user')->middleware('company_user:admin');
-Route::post('/user/add', 'UserController@addPost')->name('add_user_post')->middleware('company_user:admin');
-Route::get('/user/edit/{user}', 'UserController@edit')->name('edit_user')->middleware('company_user:admin');
-Route::post('/user/edit/{user}', 'UserController@editPost')->name('edit_user_post')->middleware('company_user:admin');
-Route::post('/user/delete', 'UserController@delete')->name('delete_user')->middleware('company_user:admin');
+Route::get('/user/all', 'UserController@all')->name('view_all_user')->middleware('permission:view all user');
+Route::get('/user/add', 'UserController@add')->name('add_user')->middleware('permission:add user');
+Route::post('/user/add', 'UserController@addPost')->name('add_user_post')->middleware('permission:add user');
+Route::get('/user/edit/{user}', 'UserController@edit')->name('edit_user')->middleware('permission:edit user');
+Route::post('/user/edit/{user}', 'UserController@editPost')->name('edit_user_post')->middleware('permission:edit user');
+Route::post('/user/delete', 'UserController@delete')->name('delete_user')->middleware('permission:delete user');
 
 
 // Port
