@@ -1,9 +1,5 @@
 <?php
 
-
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +10,8 @@ use Spatie\Permission\Models\Permission;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 
 Auth::routes();
