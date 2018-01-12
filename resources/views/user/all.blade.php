@@ -2,84 +2,99 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="filter-box">
 	<div class="row">
-		<div class="col-md-12 text-right">
-			<a href="{{ route('add_user') }}" class="btn btn-primary">Add User</a>
+		<div class="col-md-6">
+			<div class="input-group pull-left" style="width: 30%;">
+				<input type="text" id="global_filter" class="form-control pull-right global_filter" placeholder="Search">
+
+				<div class="input-group-btn">
+					<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="pull-right">
+				@role('admin')
+					<a href="{{route('add_user')}}" class="btn btn-primary hidden-sm hidden-xs" title="New Item"><span class=""><i class="fa fa-plus-circle" aria-hidden="true"></i> Add User</span></a>
+				@endrole
+			</div>
 		</div>
 	</div>
 
-	<hr>
-
-    <div class="row">
-        <div class="col-md-12">
-        	<table class="table table-striped table-hover">
-        		<thead>
-        			<tr >
-						<th>Name</th>
-						<th>Email</th>
-						<th>User Type</th>
-						<th></th>
-					</tr>
-        		</thead>
-				
-				<tbody>
-					@foreach($users as $user)
-						<tr>
-							<td>{{ $user->name }}</td>
-							<td>{{ $user->email }}</td>
-							<td>
-								@if ($user->role == RoleType::$ADMIN)
-									Admin
-								@elseif ($user->role == RoleType::$COMPANY_ADMIN)
-									Company User
-								@elseif ($user->role == RoleType::$COMPANY_STAFF)
-									Company Staff
-								@elseif ($user->role == RoleType::$CUSTOMER)
-									Customer
-								@endif
-							</td>
-							
-							<td class="text-right">
-								<div class="dropdown">
-									<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-										<span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
-									</button>
-									<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-										<li><a href="{{ route('edit_user', ['user' => $user->id]) }}">Edit</a></li>
-										<li><a class="delete" data-id="{{ $user->id }}" data-toggle="modal" data-target="#deleteModal">Delete</a></li>
-									</ul>
-								</div>
-							</td>
-						</tr>
-					@endforeach
-				</tbody>
-			</table>
-
-			<div class="pagination"> {{ $users->links() }} </div>
-        </div>
-    </div>
+	<div class="row hidden" id="selectButtonHolder" style="margin-top:10px">
+		<div class="col-md-12">
+			<div class="input-group">
+				<button style="margin-right:5px" class="btn btn-danger" id="deleteButton">Delete Row(s)</button>
+				<button style="margin-right:5px" class="btn btn-default" id="selectAllButton">Select All</button>
+				<button class="btn btn-default" id="clearAllButton">Clear All</button>
+			</div>
+		</div>
+	</div>
 </div>
 
+<div class="box box-primary" style="padding:20px">
+	<div class = "row">
+		<div class="col-md-12 table-responsive">
 
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Delete</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure want to delete?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button id="btnDelete" type="button" class="btn btn-danger">Delete</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+			<table class="table table-hover " >
+				<thead>
+				<tr >
+					<th></th>
+					<th>Actions</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>User Type</th>
+				</tr>
+				</thead>
+				<tbody>
+				@foreach($users as $user)
+					<tr data-id="{{ $user->id }}">
+						<td></td>
+						<td>
+							<div class="dropdown">
+								<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="pe-7s-pen"></i>
+									<span class="caret"></span></button>
+								<ul class="dropdown-menu">
+									@role('admin')
+										<li><a href="{{route('edit_user',['user'=>$user->id])}}">Edit User</a></li>
+										<li><a href="{{route('delete_user',['user'=>$user->id])}}">Delete</a></li>
+									@endrole
+								</ul>
+							</div>
+						</td>
+
+						<td>{{ $user->name }}</td>
+						<td>{{ $user->email }}</td>
+						<td>@role('admin') Admin @endrole</td>
+					</tr>
+				@endforeach
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
 @endsection
+
+<div class="modal modal-danger fade" id="deleteModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Delete</h4>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure want to delete?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
+				<button id="confirmDelete" type="button" class="btn btn-outline">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 @section('additionalJS')
 <script type="text/javascript">
@@ -90,32 +105,90 @@
 	        }
 	    });
 
-		$('.delete').click(function(){
-			var id = $(this).data('id');
-			var index = $(this).closest('tr').index();
+        function filterGlobal () {
+            $('.table').DataTable().search(
+                $('#global_filter').val(),
+                $('#global_regex').prop('checked'),
+                $('#global_smart').prop('checked')
+            ).draw();
+        }
 
-			$("#btnDelete").attr("data-id", id);
-			$("#btnDelete").attr("data-index", index);
-		});
+        $(document).ready(function(){
+            table = $('.table').DataTable({
 
-		$('#btnDelete').click(function(){
-			//alert($(this).attr('data-id'));\
-			var id = $(this).attr('data-id');
-			var index = parseInt($(this).attr('data-index'))+1;
+                pageLength:10,
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets:   0
+                }],
+                select: {
+                    style:    'multi',
+                    selector: 'td:first-child'
+                },
+                dom:"Bt<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-4'l><'col-sm-8'p>>",
+                buttons: [
+                    'copy', 'csv', 'excel', 'print','colvis'
+                ],
 
-			$.ajax({
-				method: "POST",
-				url: "{{ route('delete_user') }}",
-				data: { id: id }
-			}).done(function( data ) {
-				if (data.success == false) {
-					alert(data.message);
-				} else {
-					$('#deleteModal').modal('toggle');
-					$( 'tr:eq( '+index+' )' ).remove();
-				}
-			});
-		});
+            });
+
+            table.on( 'select', function ( e, dt, type, indexes ) {
+                if ( type === 'row' ) {
+                    $('#selectButtonHolder').removeClass('hidden');
+                }
+
+            });
+
+            table.on( 'deselect', function ( e, dt, type, indexes ) {
+                var count_rows =  table.rows('.selected').data().length;
+                if(count_rows==0){
+                    $('#selectButtonHolder').addClass('hidden');
+                }
+            } );
+
+            $('#selectAllButton').click( function () {
+
+                table.rows({ page: 'current' }).select();
+
+            });
+
+            $('#clearAllButton').click( function () {
+
+                table.rows({ page: 'current' }).deselect();
+
+            } );
+
+            $('#deleteButton').click( function () {
+                $("#deleteModal").modal('toggle');
+            });
+
+            $('#confirmDelete').click(function(){
+
+                var id = $.map(table.rows('.selected').nodes(), function (item) {
+                    return $(item).attr("data-id");
+                });
+
+                //console.log(id);
+                $.ajax({
+                    url: "{{route('delete_user')}}",
+                    type: "post",
+                    data: {id:id},
+                    success: function(response){
+                        if(response.success)
+                            table.rows('.selected').remove().draw( false );
+                        $("#deleteModal").modal('toggle');
+                        $('#selectButtonHolder').addClass('hidden');
+                    }
+                });
+            });
+
+        });
+
+        $('input.global_filter').on( 'keyup click', function () {
+            filterGlobal();
+        })
 	})
 </script>
 @stop

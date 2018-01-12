@@ -24,10 +24,17 @@ use App\Enumeration\RoleType;
 
     <!-- Dropzone css -->
     <link href={{ asset('css/dropzone.css')}} rel="stylesheet" />
+
+    <!-- Select2 -->
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
+
     <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/datatables.min.css') }}"/>
 
     <link rel="stylesheet" href="{{ asset('css/AdminLTE.css') }}">
     <link rel="stylesheet" href="{{ asset('css/skins/skin-blue.min.css') }}">
+
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
 
 <!-- Scripts -->
@@ -44,7 +51,7 @@ use App\Enumeration\RoleType;
         <!-- Logo -->
         <a class="logo" href="{{ url('/') }}">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>Copmany Name</b></span>
+            <span class="logo-mini"><b>A</b></span>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><img style="border-radius: 50px;padding:5px;" src="{{ asset('images/logo.png') }}" height="50px" width="50px"> <b>Airlines Company</b> Admin</span>
         </a>
