@@ -11,8 +11,8 @@ use Auth;
 class FerryController extends Controller
 {
     public function all() {
-        $ferries = Ferry::paginate(10);
-    	return view('ferry.all', compact('ferries'));
+        $airplanes = Ferry::paginate(10);
+    	return view('ferry.all', compact('airplanes'));
     }
 
     public function add() {
