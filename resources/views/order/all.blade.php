@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    <div class="container">
+    <div class="filter-box">
 
         <form  class="form" action="{{ route('all_order') }}" method="GET">
             <div class="row">
@@ -15,8 +15,6 @@
                 </div>
             </div>
 <br/>
-
-            <div class="row">
 
         <div class="row">
                 <div class="col-md-2 filter2" id="idDiv">
@@ -49,10 +47,12 @@
 
         </div>
         </form>
+        </div>
         <hr>
 
-        <div class="row">
-            <div class="col-md-12">
+    <div class="box box-primary" style="padding:20px">
+        <div class = "row">
+            <div class="col-md-12 table-responsive">
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>
@@ -88,7 +88,7 @@
                     @endforeach
                     </tbody>
                 </table>
-
+            </div>
                 @if($paginate==2)
                 <div class="pagination"> {{ $orders->appends($appends)->links() }} </div>
                 @endif

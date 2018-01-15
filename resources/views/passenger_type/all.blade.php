@@ -1,17 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="filter-box">
 	<div class="row">
 		<div class="col-md-12 text-right">
 			<a href="{{ route('add_passenger_type') }}" class="btn btn-primary">Add Passenger Type</a>
 		</div>
 	</div>
+</div>
 
 	<hr>
 
-    <div class="row">
-        <div class="col-md-12">
+<div class="box box-primary" style="padding:20px">
+	<div class = "row">
+		<div class="col-md-12 table-responsive">
         	<table class="table table-hover table-striped">
         		<thead>
         			<tr>
@@ -47,7 +49,7 @@
 					@endforeach
 				</tbody>
 			</table>
-
+		</div>
 			<div class="pagination"> {{ $types->links() }} </div>
         </div>
     </div>
