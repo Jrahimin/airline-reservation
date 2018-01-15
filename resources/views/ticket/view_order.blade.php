@@ -5,9 +5,9 @@
 @stop
 
 @section('content')
-    <div class="container">
+    <div class="box box-primary" style="padding: 20px;">
         <div class="row">
-            <div class="col-md-12">
+
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>
@@ -40,7 +40,7 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        
     </div>
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">

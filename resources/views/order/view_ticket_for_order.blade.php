@@ -74,14 +74,14 @@
 
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Departing Info</h3>
                     </div>
                     <div class="panel-body">
                         <h4>Departure Date:</h4>
-                        <p>{{ $ticketDepart->departure_date }}</p>
+                        <p>{{ date('j M, Y - h:i A', strtotime($ticketDepart->departure_date_time)) }}</p>
 
                         <h4>Depart From:</h4>
                         <p>{{ $ticketDepart->trip->departure_port->name }}</p>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="panel-body">
                             <h4>Departure Date:</h4>
-                            <p>{{ $ticketReturn->departure_date }}</p>
+                            <p>{{ date('j M, Y - h:i A', strtotime($ticketReturn->departure_date_time)) }}</p>
 
                             <h4>Depart From:</h4>
                             <p>{{ $ticketReturn->trip->departure_port->name }}</p>

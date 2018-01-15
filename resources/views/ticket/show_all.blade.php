@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    <div class="container">
+    <div class="filter">
 
       <div class="row">
             <form  class="form" action="{{ route('all_ticket') }}" method="GET">
@@ -56,12 +56,14 @@
 
                 </div>
             </form>
+      </div>
         </div>
 
         <hr>
 
-        <div class="row">
-            <div class="col-md-12">
+    <div class="box box-primary" style="padding:20px">
+        <div class = "row">
+            <div class="col-md-12 table-responsive">
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>
@@ -107,7 +109,7 @@
                     @endforeach
                     </tbody>
                 </table>
-
+            </div>
                 <div class="pagination"> {{ $tickets->appends($appends)->links() }} </div>
             </div>
         </div>

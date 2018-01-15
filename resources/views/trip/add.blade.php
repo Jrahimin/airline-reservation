@@ -7,9 +7,9 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-11">
             <div class="panel panel-primary">
-                <div class="panel-heading">Add Trip</div>
+                <div class="panel-heading">Add Flight</div>
                 <div class="panel-body">
                     <form class="form" role="form" method="POST" action="{{ route('add_trip_post') }}">
                         {{ csrf_field() }}
@@ -18,9 +18,9 @@
                             <h2>Information</h2>
 
                             <div class="form-group{{ $errors->has('ferry_id') ? ' has-error' : '' }}">
-                                <label for="ferry_id">Ferry</label>
+                                <label for="ferry_id">Airplane</label>
                                 <select class="form-control" id="ferry_id" name="ferry_id" >
-                                    <option value="">Select Ferry</option>
+                                    <option value="">Select Airplane</option>
 
                                     @foreach($ferries as $ferry)
                                         <option value="{{ $ferry->id }}" {{ old('ferry_id') == $ferry->id ? 'selected' : '' }}>{{ $ferry->name }}</option>
@@ -91,7 +91,7 @@
                             
                             <div class="radio">
                                 <label>
-                                    <input class="schedule_type" type="radio" name="schedule_type" value="1" checked>Manual
+                                    <input type="radio" name="schedule_type" value="1" checked>Manual
                                 </label>
                             </div>
 
@@ -127,7 +127,7 @@
 
                             <div class="radio">
                                 <label>
-                                    <input type="radio" class="schedule_type" name="schedule_type" value="2" {{ old('schedule_type') == '2' ? 'checked' : '' }}>Automatic
+                                    <input type="radio" name="schedule_type" value="2" {{ old('schedule_type') == '2' ? 'checked' : '' }}>Automatic
                                 </label>
                             </div>
 
