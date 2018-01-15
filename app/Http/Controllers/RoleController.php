@@ -21,7 +21,7 @@ class RoleController extends Controller
         $input['name']=$request->name;
         $role=Role::create($input);
 
-        for($i=0;$i<4;$i++)
+        for($i=0;$i<36;$i++)
         {
             if(!empty($request->permission[$i]))
                 $role->givePermissionTo($request->permission[$i]);
