@@ -54,11 +54,11 @@ class FerryController extends Controller
         return redirect()->route('view_all_ferry');
     }
 
-    public function edit(Ferry $ferry) {
-    	return view('ferry.edit', compact('ferry'));
+    public function edit(Ferry $airplane) {
+    	return view('ferry.edit', compact('airplane'));
     }
 
-    public function editPost(Request $request, Ferry $ferry) {
+    public function editPost(Request $request, Ferry $airplane) {
         $rules = [
                 'name'              => 'required|max:255',
                 'captain_name'      => 'required|max:255',
@@ -81,15 +81,15 @@ class FerryController extends Controller
 	    	$destinationPath = 'images/ferry_logo';
 	    	$image = $file->move($destinationPath, $filename);
 
-	    	$ferry->image_url = $destinationPath.'/'.$filename;
+            $airplane->image_url = $destinationPath.'/'.$filename;
     	}
 
-    	$ferry->name = $request->name;
-    	$ferry->captain_name = $request->captain_name;
-    	$ferry->number_of_crew = $request->number_of_crew;
-    	$ferry->number_of_seat = $request->number_of_seat;
-    	$ferry->status = $active;
-    	$ferry->save();
+        $airplane->name = $request->name;
+        $airplane->captain_name = $request->captain_name;
+        $airplane->number_of_crew = $request->number_of_crew;
+        $airplane->number_of_seat = $request->number_of_seat;
+        $airplane->status = $active;
+        $airplane->save();
 
     	return redirect()->route('view_all_ferry');
     }

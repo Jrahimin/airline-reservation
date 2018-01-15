@@ -8,14 +8,14 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Edit Ferry</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('edit_ferry_post', ['ferry' => $ferry->id]) }}" enctype="multipart/form-data">
+                    <form class="form-horizontal" method="POST" action="{{ route('edit_ferry_post', ['ferry' => $airplane->id]) }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') ? old('name') : $ferry->name }}">
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') ? old('name') : $airplane->name }}">
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -29,7 +29,7 @@
                             <label for="captain_name" class="col-md-4 control-label">Captain Name</label>
 
                             <div class="col-md-6">
-                                <input id="captain_name" type="text" class="form-control" name="captain_name" value="{{ old('captain_name') ? old('captain_name') : $ferry->captain_name }}">
+                                <input id="captain_name" type="text" class="form-control" name="captain_name" value="{{ old('captain_name') ? old('captain_name') : $airplane->captain_name }}">
 
                                 @if ($errors->has('captain_name'))
                                     <span class="help-block">
@@ -43,7 +43,7 @@
                             <label for="number_of_seat" class="col-md-4 control-label">Number Of Seat</label>
 
                             <div class="col-md-6">
-                                <input id="number_of_seat" type="number" class="form-control" name="number_of_seat" value="{{ old('number_of_seat') ? old('number_of_seat') : $ferry->number_of_seat }}">
+                                <input id="number_of_seat" type="number" class="form-control" name="number_of_seat" value="{{ old('number_of_seat') ? old('number_of_seat') : $airplane->number_of_seat }}">
 
                                 @if ($errors->has('number_of_seat'))
                                     <span class="help-block">
@@ -57,7 +57,7 @@
                             <label for="number_of_crew" class="col-md-4 control-label">Number Of Crew</label>
 
                             <div class="col-md-6">
-                                <input id="number_of_crew" type="number" class="form-control" name="number_of_crew" value="{{ old('number_of_crew') ? old('number_of_crew') : $ferry->number_of_crew }}">
+                                <input id="number_of_crew" type="number" class="form-control" name="number_of_crew" value="{{ old('number_of_crew') ? old('number_of_crew') : $airplane->number_of_crew }}">
 
                                 @if ($errors->has('number_of_crew'))
                                     <span class="help-block">
@@ -72,7 +72,7 @@
 
                             <div class="col-md-6">
                                 <label class="switch">
-                                    <input type="checkbox" name="status" {{ $ferry->status == '1' ? 'checked' : '' }}>
+                                    <input type="checkbox" name="status" {{ $airplane->status == '1' ? 'checked' : '' }}>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -81,7 +81,7 @@
                         <div class="form-group{{ $errors->has('logo') ? ' has-error' : '' }}">
                             <label for="logo" class="col-md-4 control-label">Logo</label>
                             <div class="col-md-6" >
-                                <img id="logoPreview" src="{{ asset($ferry->image_url) }}" alt="Invalid Image" height="90px" width="90px"/>
+                                <img id="logoPreview" src="{{ asset($airplane->image_url) }}" alt="Invalid Image" height="90px" width="90px"/>
 
                                 <button class="btn btn-default" type="button" id="get_file"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Change</button>
                                     
