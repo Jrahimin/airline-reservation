@@ -40,7 +40,7 @@
                     </tbody>
                 </table>
             </div>
-        
+
     </div>
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
