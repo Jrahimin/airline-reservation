@@ -16,7 +16,7 @@
 			<div class="col-md-6">
 				<div class="pull-right">
 					@role('admin')
-					<a href="{{route('add_user')}}" class="btn btn-primary hidden-sm hidden-xs" title="New Item"><span class=""><i class="fa fa-plus-circle" aria-hidden="true"></i> Add User</span></a>
+					<a href="{{route('add_ferry')}}" class="btn btn-primary hidden-sm hidden-xs" title="New Item"><span class=""><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Airplane</span></a>
 					@endrole
 				</div>
 			</div>

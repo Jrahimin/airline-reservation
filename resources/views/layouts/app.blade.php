@@ -7,18 +7,18 @@ use App\Enumeration\RoleType;
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Airlines Ticketing System') }}</title>
+    <title>Airlines Reservation System</title>
 
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-theme.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    {{--<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">--}}
     <!-- Jquery Ui -->
     <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet" />
 
@@ -27,6 +27,20 @@ use App\Enumeration\RoleType;
 
     <!-- Select2 -->
     <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href=http://localhost/pointofsales2/public/css/navbar-fixed-side.css rel="stylesheet"/>
+
+    <!--     Fonts and icons     -->
+
+    <link href='http://localhost/pointofsales2/public/fonts/fonts.css' rel='stylesheet' type='text/css'>
+    <link href=http://localhost/pointofsales2/public/css/pe-icon-7-stroke.css rel="stylesheet" />
+    <link href=http://localhost/pointofsales2/public/css/tagit.ui-zendesk.css rel="stylesheet" />
+    <link href=http://localhost/pointofsales2/public/css/jquery.tagit.css rel="stylesheet" />
+    <link href="http://localhost/pointofsales2/public/css/bootstrap-switch.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="{{ asset('css/ezpos.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/datatables.min.css') }}"/>
 
@@ -53,7 +67,7 @@ use App\Enumeration\RoleType;
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>A</b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><img style="border-radius: 50px;padding:5px;" src="{{ asset('images/logo.png') }}" height="50px" width="50px"> <b>Airlines Company</b> Admin</span>
+            <span class="logo-lg"><img style="border-radius: 50px;padding:5px;" src="{{ asset('images/logo.png') }}" height="50px" width="50px"> <b>Airlines</b></span>
         </a>
 
         <nav class="navbar navbar-static-top">
@@ -62,7 +76,7 @@ use App\Enumeration\RoleType;
                 <span class="sr-only">Toggle navigation</span>
             </a>
 
-            <a href="#" class="navbar-brand">Airlines</a>
+            <a href="" class="navbar-brand">Airlines</a>
 
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
@@ -197,6 +211,8 @@ use App\Enumeration\RoleType;
 <!-- Bootstrap DatePicker JS -->
 <script src={{ asset('js/bootstrap-datepicker.js')}} type="text/javascript"></script>
 
+
+
 <!-- Token Input js -->
 <script src={{ asset('js/jquery.tokeninput.js')}}></script>
 
@@ -217,6 +233,39 @@ use App\Enumeration\RoleType;
 
 <script type="text/javascript">
     $(document).ready(function(){
+        $.extend(true, $.fn.dataTable.defaults, {
+            mark: true
+        });
+
+        var is_error = '{{ ( session()->has('error')) ? session()->get('error') : 0 }}';
+
+        if(is_error!="0"){
+
+            $.notify({
+                icon: 'pe-7s-gift',
+                message: is_error
+
+            },{
+                type: 'danger',
+                timer: 4000
+            });
+        }
+
+        var is_success = '{{ ( session()->has('success')) ? session()->get('success') : 0 }}';
+
+        if(is_success!="0"){
+
+            $.notify({
+                icon: 'pe-7s-gift',
+                message: is_success
+
+            },{
+                type: 'success',
+                timer: 4000
+            });
+        }
+
+
         $('[data-toggle="tooltip"]').tooltip();
     });
 </script>

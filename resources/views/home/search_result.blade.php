@@ -9,7 +9,7 @@
 	<div class="jumbotron">
         <form class="form">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-11">
                     <label class="radio-inline">
                         <input type="radio" class="trip_type" name="trip_type" id="trip_type_one" value="1" {{ $request->trip_type == '1' ? 'checked' : '' }}> One Way
                     </label>
@@ -93,7 +93,7 @@
 	    </div>
     @else
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-11">
 				<h4>
 					{{ $departure_port->name }}
 					<i class="fa fa-long-arrow-right" aria-hidden="true"></i> 

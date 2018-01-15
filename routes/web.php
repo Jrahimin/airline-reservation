@@ -58,8 +58,8 @@ Route::post('/passenger-type/delete', 'PassengerTypeController@delete')->name('d
 Route::get('/airplane/all', 'FerryController@all')->name('view_all_ferry')->middleware('company_user');
 Route::get('/airplane/add', 'FerryController@add')->name('add_ferry')->middleware('company_user:admin');
 Route::post('/airplane/add', 'FerryController@addPost')->name('add_ferry_post')->middleware('company_user:admin');
-Route::get('/airplane/edit/{ferry}', 'FerryController@edit')->name('edit_ferry')->middleware('company_user:admin');
-Route::post('/airplane/edit/{ferry}', 'FerryController@editPost')->name('edit_ferry_post')->middleware('company_user:admin');
+Route::get('/airplane/edit/{airplane}', 'FerryController@edit')->name('edit_ferry')->middleware('company_user:admin');
+Route::post('/airplane/edit/{airplane}', 'FerryController@editPost')->name('edit_ferry_post')->middleware('company_user:admin');
 Route::post('/airplane/delete', 'FerryController@delete')->name('delete_ferry')->middleware('company_user:admin');
 
 
