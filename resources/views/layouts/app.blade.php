@@ -8,39 +8,39 @@ use App\Enumeration\RoleType;
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Airlines Reservation System</title>
+
+    <title>{{ $settings['company_name'] }} admin</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-theme.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.min.css') }}">
-    {{--<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">--}}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+
     <!-- Jquery Ui -->
     <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet" />
 
     <!-- Dropzone css -->
     <link href={{ asset('css/dropzone.css')}} rel="stylesheet" />
 
-    <!-- Select2 -->
-    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
-
     <!--  Light Bootstrap Table core CSS    -->
-    <link href=http://localhost/pointofsales2/public/css/navbar-fixed-side.css rel="stylesheet"/>
+    <link href={{ asset('css/navbar-fixed-side.css')}} rel="stylesheet"/>
+
+
+    <!-- Bootstrap Datepicker css -->
+    <link href={{ asset('css/bootstrap-datepicker.css')}} rel="stylesheet"/>
 
     <!--     Fonts and icons     -->
 
-    <link href='http://localhost/pointofsales2/public/fonts/fonts.css' rel='stylesheet' type='text/css'>
-    <link href=http://localhost/pointofsales2/public/css/pe-icon-7-stroke.css rel="stylesheet" />
-    <link href=http://localhost/pointofsales2/public/css/tagit.ui-zendesk.css rel="stylesheet" />
-    <link href=http://localhost/pointofsales2/public/css/jquery.tagit.css rel="stylesheet" />
-    <link href="http://localhost/pointofsales2/public/css/bootstrap-switch.css" rel="stylesheet">
-
+    <link href='{{ asset('fonts/fonts.css') }}' rel='stylesheet' type='text/css'>
+    <link href={{ asset('css/pe-icon-7-stroke.css')}} rel="stylesheet" />
+    <link href={{ asset('css/tagit.ui-zendesk.css')}} rel="stylesheet" />
+    <link href={{ asset('css/jquery.tagit.css')}} rel="stylesheet" />
+    <link href="{{ asset('css/bootstrap-switch.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('css/ezpos.css') }}">
+    <!-- Select2 -->
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/datatables.min.css') }}"/>
 
@@ -51,12 +51,9 @@ use App\Enumeration\RoleType;
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
 
-<!-- Scripts -->
-    <script>
-        window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-        ]) !!};
-    </script>
+
+
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -145,15 +142,15 @@ use App\Enumeration\RoleType;
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 {{--<li class="header">MAIN NAVIGATION</li>--}}
-                @role('admin'))
-                    <li><a href="{{route('view_all_user')}}"><i class="fa fa-users" aria-hidden="true"></i> Users</a></li>
-
-                    <li><a href="{{route('view_all_port')}}"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Airport</a></li>
-                    <li><a href="{{route('view_all_passenger_type')}}"><i class="fa fa-street-view" aria-hidden="true"></i> Passenger Type</a></li>
-                    <li><a href="{{route('view_all_ferry')}}"><i class="fa fa-plane" aria-hidden="true"></i> Airplane</a></li>
-                    <li><a href="{{route('view_all_trip')}}"><i class="fa fa-tripadvisor" aria-hidden="true"></i> Trip</a></li>
-                    <li><a href="{{route('all_order')}}"><i class="fa fa-first-order" aria-hidden="true"></i> Order</a></li>
-                    <li><a href="{{route('all_ticket')}}"><i class="fa fa-ticket" aria-hidden="true"></i> Ticket</a></li>
+                @role('admin')
+                    <li><a href="{{route('view_all_user')}}"><i class="fa fa-users" aria-hidden="true"></i><span>Users</span></a></li>
+                    <li><a href="{{route('view_all_port')}}"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i><span>Airport</span></a></li>
+                    <li><a href="{{route('view_all_passenger_type')}}"><i class="fa fa-street-view" aria-hidden="true"></i><span>Passenger Type</span></a></li>
+                    <li><a href="{{route('view_all_ferry')}}"><i class="fa fa-plane" aria-hidden="true"></i><span>Airplane</span></a></li>
+                    <li><a href="{{route('view_all_trip')}}"><i class="fa fa-tripadvisor" aria-hidden="true"></i><span>Trip</span></a></li>
+                    <li><a href="{{route('all_order')}}"><i class="fa fa-first-order" aria-hidden="true"></i><span>Order</span></a></li>
+                    <li><a href="{{route('all_ticket')}}"><i class="fa fa-ticket" aria-hidden="true"></i><span>Ticket</span></a></li>
+                    <li><a href="{{route('view_all_roles')}}"><i class="fa fa-cog" aria-hidden="true"></i><span>Role</span></a></li>
                 @endrole
             </ul>
         </section>

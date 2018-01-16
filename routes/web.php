@@ -99,9 +99,9 @@
 
     //promona routes
     //Roles
-        Route::get('/role', 'RoleController@createRoles')->middleware('permission:create roles');
+        Route::get('/role', 'RoleController@createRoles')->middleware('permission:create roles')->name('add_role');
         Route::post('/role/create', 'RoleController@storeRoles')->middleware('permission:create roles')->name('role_create');
-        Route::delete('/role/delete/{id}', 'RoleController@deleteRole')->middleware('permission:delete roles')->name('role_delete');
+        Route::post('/role/delete', 'RoleController@deleteRole')->middleware('permission:delete roles')->name('role_delete');
         Route::get('/role/details/{id}', 'RoleController@viewRoleDetails')->middleware('permission:create roles')->name('role_details');
         Route::get('/role/edit/{id}', 'RoleController@editRole')->middleware('permission:edit roles')->name('role_edit');
         Route::post('/role/edit/{role}', 'RoleController@editRoleStore')->middleware('permission:edit roles')->name('role_edit_store');

@@ -1,39 +1,52 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-    <title>Roles</title>
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Add Role</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" method="POST" action="{{ route('role_create') }}">
+                            {{ csrf_field() }}
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                <label for="name" class="col-md-4 control-label">Name</label>
 
-    <!-- Styles -->
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
 
-</head>
-<body>
-<form method="post" action="{{route('role_create')}}">
-    {{csrf_field()}}
-    <div >
-        <div >
-            <label>Role</label>
-            <input name="name" type="text">
-            <br><br>
+                                    @if ($errors->has('name'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
 
-                @foreach($permissions as $permission)
-                    <input type="checkbox" name="permission[]" value="{{$permission->name}}">
-                     {{$permission->name}}<br>
-                @endforeach
+                            <div class="form-group">
+                                <label for="city_name" class="col-md-4 control-label">Permissions</label>
 
+                                <div class="col-md-6">
+                                    @foreach($permissions as $permission)
+                                        <input type="checkbox" name="permission[]" value="{{$permission->name}}">
+                                        {{$permission->name}}<br>
+                                    @endforeach
+                                </div>
+                            </div>
 
-            <button>Save</button>
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Add
+                                    </button>
+                                    <a class="btn btn-default" href="{{ route('view_all_port') }}">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-
-
     </div>
-</form>
-
-</body>
-</html>
+@endsection

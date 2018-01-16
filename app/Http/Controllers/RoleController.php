@@ -30,7 +30,7 @@ class RoleController extends Controller
     }
     public function viewRoles()
     {
-        $roles=Role::all();
+        $roles=Role::paginate(10);
         return view('roles.allRoles',compact('roles'));
     }
 
@@ -48,9 +48,9 @@ class RoleController extends Controller
 
     }
 
-    public function deleteRole($id)
+    public function deleteRole(Request $request)
     {
-        $role=Role::find($id);
+        $role=Role::find($request->id);
         $users = User::role($role->name)->get();
         $permissions=Role::findByName($role->name)->permissions;
         foreach ($users as $user)
