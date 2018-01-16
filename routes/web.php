@@ -93,7 +93,7 @@
         Route::get('/trip/view_order/{trip}', 'OrderController@viewTripOrder')->name('view_order')->middleware('permission:view all order');
 
     //SettingsController
-        route::get('/settings/edit','SettingsController@GetSettings')->name('change_settings');
+        route::get('/settings/edit','SettingsController@GetSettings')->name('change_settings')->middleware('permission:save settings');
         route::post('/settings/save','SettingsController@SaveSettings')->name('save_settings');
 
 
