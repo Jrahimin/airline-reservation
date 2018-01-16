@@ -65,9 +65,9 @@ use App\Enumeration\RoleType;
         <!-- Logo -->
         <a class="logo" href="{{ url('/') }}">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>A</b></span>
+            <span class="logo-mini"><b>{{ $settings['company_name'][0] }}</b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><img style="border-radius: 50px;padding:5px;" src="{{ asset('images/logo.png') }}" height="50px" width="50px"> <b>Airlines</b></span>
+            <span class="logo-lg"><img style="border-radius: 50px;padding:5px;" src="{{ asset('images/logo.png?') }}" height="50px" width="50px"> <b>{{ $settings['company_name'] }}</b> Admin</span>
         </a>
 
         <nav class="navbar navbar-static-top">
@@ -116,7 +116,7 @@ use App\Enumeration\RoleType;
                                                      document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">Sign out</a>
                                     <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}"> </form>
-                                    {{--<a href="{{ route('change_settings') }}"><span class="hidden-xs"><i class="fa fa-cog fa-spin fa-fw margin-bottom"></i></span></a>--}}
+                                    <a href="{{ route('change_settings') }}"><span class="hidden-xs"><i class="fa fa-cog fa-spin fa-fw margin-bottom"></i></span></a>
 
                                 </div>
                             </li>
@@ -233,6 +233,12 @@ use App\Enumeration\RoleType;
 
 <script type="text/javascript">
     $(document).ready(function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $.extend(true, $.fn.dataTable.defaults, {
             mark: true
         });

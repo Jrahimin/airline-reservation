@@ -28,4 +28,9 @@ class SettingsComposer
 
         $view->with('settings',$settings);
     }
+
+    public function register()
+    {
+        //
+    }
 }

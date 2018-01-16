@@ -92,6 +92,10 @@
         Route::get('/order/print/{order}', 'OrderController@orderPrint')->name('order_print')->middleware('permission:print ticket');
         Route::get('/trip/view_order/{trip}', 'OrderController@viewTripOrder')->name('view_order')->middleware('permission:view all order');
 
+    //SettingsController
+        route::get('/settings/edit','SettingsController@GetSettings')->name('change_settings');
+        route::post('/settings/save','SettingsController@SaveSettings')->name('save_settings');
+
 
     //promona routes
     //Roles

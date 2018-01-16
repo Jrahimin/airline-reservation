@@ -1,6 +1,7 @@
 <?php
 namespace App\library;
-use DB;
+use App\Model\Setting;
+use Illuminate\Support\Facades\DB;
 
 class SettingsSingleton
 {
@@ -15,13 +16,21 @@ class SettingsSingleton
             foreach($items as $item) {
                 $settings[$item->key] = $item->value;
             }
+            //dd($settings);
             self::$settingsData = $settings;
         }
         return self::$settingsData;
     }
 
-    public static function set()
+    public static function set($key, $value)
     {
+        $settings = Setting::where("key",$key)->first();
+        $settings->key = $key;
+        $settings->value = $value;
+        $settings->save();
+
+        self::$settingsData[$key] = $value;
+
         //DB update
         //self::$settingsData = ['id' => 4, 'name' => 'yoo'];
     }
