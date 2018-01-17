@@ -81,7 +81,7 @@
         Route::get('/booking/success', 'TicketBookingController@storeTicket')->name('success')->middleware('permission:book ticket');
 
     //TicketObserveController
-        Route::get('/ticket/all', 'TicketObserveController@getAllTicket')->name('all_ticket')->middleware('company_user');
+        Route::get('/ticket/all', 'TicketObserveController@getAllTicket')->name('all_ticket')->middleware('permission:view all tickets');
         Route::get('/ticket/view_order/{ticket}', 'TicketObserveController@viewOrder')->name('view_ticket_order')->middleware('permission:view single order');
         Route::post('/ticket/delete', 'TicketObserveController@delete')->name('delete_ticket')->middleware('company_user:admin');
 
