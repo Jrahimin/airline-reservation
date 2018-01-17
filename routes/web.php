@@ -21,7 +21,7 @@
 
     // Home
         Route::get('/', 'HomeController@index')->name('index')->middleware('permission:search available flights');
-        Route::get('/trip/search', 'HomeController@search')->middleware('permission:search available flights')->name('search_trip');//search available flights
+        Route::get('/trip/search', 'HomeController@search')->middleware('permission:search available flights') ->name('search_trip');//search available flights
 
 
     // Ticket Booking

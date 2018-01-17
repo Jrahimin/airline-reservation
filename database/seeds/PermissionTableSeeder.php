@@ -51,7 +51,7 @@ class PermissionTableSeeder extends Seeder
         $permission24= Permission::create(['name' => 'add flights','group_id'=>'2']);
         $permission25=Permission::create(['name' => 'edit flights','group_id'=>'2']);
         $permission26= Permission::create(['name' => 'delete flights','group_id'=>'2']);
-        $permission27=Permission::create(['name' => 'view all user','group_id'=>'2']);
+        $permission27=Permission::create(['name' => 'view all user','group_id'=>'7']);
         $permission28= Permission::create(['name' => 'add user','group_id'=>'7']);
         $permission29=Permission::create(['name' => 'edit user','group_id'=>'7']);
         $permission30= Permission::create(['name' => 'delete user','group_id'=>'7']);
