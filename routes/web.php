@@ -14,26 +14,19 @@
     use Spatie\Permission\Models\Permission;
 
 
-    Auth::routes();
-
-<<<<<<< HEAD
-    Route::get('/home', ['as'=>'home', 'uses' => 'HomeController@index']);
+        Auth::routes();
 
 
-    // Home
-        Route::get('/', 'HomeController@index')->name('index');
-        Route::get('/trip/search', 'HomeController@search')->name('search_trip');//search available flights
-=======
-    Route::get('/home', ['as'=>'home', 'uses' => 'HomeController@index'])->middleware('permission:search available flights');
+
+        Route::get('/home', ['as'=>'home', 'uses' => 'HomeController@index'])->middleware('permission:search available flights');
 
 
-    // Home
+        // Home
         Route::get('/', 'HomeController@index')->name('index')->middleware('permission:search available flights');
         Route::get('/trip/search', 'HomeController@search')->middleware('permission:search available flights')->name('search_trip');//search available flights
->>>>>>> e3ddfd710622927191f38f0bab45d0232c22ca98
 
 
-    // Ticket Booking
+        // Ticket Booking
         Route::get('/booking/passenger-details', 'TicketBookingController@passengerDetails')->name('passenger_details')->middleware('permission:book ticket');
 
     // Users
