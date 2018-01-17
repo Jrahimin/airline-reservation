@@ -16,12 +16,21 @@
 
     Auth::routes();
 
+<<<<<<< HEAD
     Route::get('/home', ['as'=>'home', 'uses' => 'HomeController@index']);
 
 
     // Home
         Route::get('/', 'HomeController@index')->name('index');
         Route::get('/trip/search', 'HomeController@search')->name('search_trip');//search available flights
+=======
+    Route::get('/home', ['as'=>'home', 'uses' => 'HomeController@index'])->middleware('permission:search available flights');
+
+
+    // Home
+        Route::get('/', 'HomeController@index')->name('index')->middleware('permission:search available flights');
+        Route::get('/trip/search', 'HomeController@search')->middleware('permission:search available flights')->name('search_trip');//search available flights
+>>>>>>> e3ddfd710622927191f38f0bab45d0232c22ca98
 
 
     // Ticket Booking
@@ -81,7 +90,7 @@
         Route::get('/booking/success', 'TicketBookingController@storeTicket')->name('success')->middleware('permission:book ticket');
 
     //TicketObserveController
-        Route::get('/ticket/all', 'TicketObserveController@getAllTicket')->name('all_ticket')->middleware('company_user');
+        Route::get('/ticket/all', 'TicketObserveController@getAllTicket')->name('all_ticket')->middleware('permission:view all tickets');
         Route::get('/ticket/view_order/{ticket}', 'TicketObserveController@viewOrder')->name('view_ticket_order')->middleware('permission:view single order');
         Route::post('/ticket/delete', 'TicketObserveController@delete')->name('delete_ticket')->middleware('company_user:admin');
 
@@ -93,7 +102,7 @@
         Route::get('/trip/view_order/{trip}', 'OrderController@viewTripOrder')->name('view_order')->middleware('permission:view all order');
 
     //SettingsController
-        route::get('/settings/edit','SettingsController@GetSettings')->name('change_settings');
+        route::get('/settings/edit','SettingsController@GetSettings')->name('change_settings')->middleware('permission:save settings');
         route::post('/settings/save','SettingsController@SaveSettings')->name('save_settings');
 
 
