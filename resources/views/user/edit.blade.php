@@ -40,21 +40,15 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
-                            <label for="role" class="col-md-4 control-label">User Type</label>
+                            <label for="role" class="col-md-4 control-label">User role</label>
 
                             <div class="col-md-6">
-                            	<select class="form-control" name="role" id="role">
-                            		<option value="">Select User Type</option>
-
-                                    @if (Auth::user()->role == RoleType::$ADMIN)
-                                		<option value="{{ RoleType::$ADMIN }}" {{ $user->role == RoleType::$ADMIN ? 'selected' : '' }}>Admin</option>
-                                        <option value="{{ RoleType::$CUSTOMER }}" {{ $user->role == RoleType::$CUSTOMER ? 'selected' : '' }}>Customer</option>
-                                    @endif
-
-                            		<option value="{{ RoleType::$COMPANY_ADMIN }}" {{ $user->role == RoleType::$COMPANY_ADMIN ? 'selected' : '' }}>Company User</option>
-                            		<option value="{{ RoleType::$COMPANY_STAFF }}" {{ $user->role == RoleType::$COMPANY_STAFF ? 'selected' : '' }}>Company Staff</option>
-                            		
-                            	</select>
+                                <select class="form-control" name="role" id="role">
+                                    <option value="">Select User Role</option>
+                                    @foreach($roles as $role)
+                                        <option value="{{$role->name}}">{{$role->name}}</option>
+                                    @endforeach
+                                </select>
 
                                 @if ($errors->has('role'))
                                     <span class="help-block">

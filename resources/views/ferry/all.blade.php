@@ -15,19 +15,9 @@
 
 			<div class="col-md-6">
 				<div class="pull-right">
-					@role('admin')
+					@role('Admin')
 					<a href="{{route('add_ferry')}}" class="btn btn-primary hidden-sm hidden-xs" title="New Item"><span class=""><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Airplane</span></a>
 					@endrole
-				</div>
-			</div>
-		</div>
-
-		<div class="row hidden" id="selectButtonHolder" style="margin-top:10px">
-			<div class="col-md-12">
-				<div class="input-group">
-					<button style="margin-right:5px" class="btn btn-danger" id="deleteButton">Delete Row(s)</button>
-					<button style="margin-right:5px" class="btn btn-default" id="selectAllButton">Select All</button>
-					<button class="btn btn-default" id="clearAllButton">Clear All</button>
 				</div>
 			</div>
 		</div>
@@ -37,12 +27,11 @@
 		<div class = "row">
 			<div class="col-md-12 table-responsive">
 
-				<table class="table table-hover table-striped" >
+				<table class="table table-hover table-striped">
 					<thead>
 					<tr >
-						<th></th>
-						<th></th>
 						<th>Actions</th>
+						<th></th>
 						<th>Name</th>
 						<th>Captain Name</th>
 						<th>Nummber Of Seat</th>
@@ -53,21 +42,20 @@
 					<tbody>
 					@foreach($airplanes as $airplane)
 						<tr data-id="{{ $airplane->id }}">
-							<td></td>
-							<td><img class="img-circle" src="{{ asset($airplane->image_url) }}" height="50px" width="50px"></td>
+
 							<td>
 								<div class="dropdown">
 									<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="pe-7s-pen"></i>
 										<span class="caret"></span></button>
 									<ul class="dropdown-menu">
-										@role('admin')
-										<li><a href="{{route('edit_ferry',['airplane'=>$airplane->id])}}">Edit Airplane</a></li>
-										<li><a href="{{route('delete_ferry',['airplane'=>$airplane->id])}}">Delete</a></li>
+										@role('Admin')
+										<li><a href="{{ route('edit_ferry', ['ferry' => $airplane->id]) }}">Edit</a></li>
+										<li><a class="delete" data-id="{{ $airplane->id }}" data-toggle="modal" data-target="#deleteModal">Delete</a></li>
 										@endrole
 									</ul>
 								</div>
 							</td>
-
+							<td><img class="img-circle" src="{{ asset($airplane->image_url) }}" height="50px" width="50px"></td>
 							<td>{{ $airplane->name }}</td>
 							<td>{{ $airplane->captain_name }}</td>
 							<td>{{ $airplane->number_of_seat }}</td>
@@ -88,24 +76,23 @@
 	</div>
 @endsection
 
-<div class="modal modal-danger fade" id="deleteModal">
-	<div class="modal-dialog">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span></button>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Delete</h4>
 			</div>
 			<div class="modal-body">
 				<p>Are you sure want to delete?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
-				<button id="confirmDelete" type="button" class="btn btn-outline">Delete</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button id="btnDelete" type="button" class="btn btn-danger">Delete</button>
 			</div>
-		</div>
-	</div>
-</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 @section('additionalJS')
 	<script type="text/javascript">
@@ -128,73 +115,38 @@
                 table = $('.table').DataTable({
 
                     pageLength:10,
-                    columnDefs: [{
-                        orderable: false,
-                        className: 'select-checkbox',
-                        targets:   0
-                    }],
-                    select: {
-                        style:    'multi',
-                        selector: 'td:first-child'
-                    },
-                    dom:"Bt<'row'<'col-sm-12'tr>>" +
-                    "<'row'<'col-sm-4'l><'col-sm-8'p>>",
                     buttons: [
                         'copy', 'csv', 'excel', 'print','colvis'
                     ],
 
                 });
 
-                table.on( 'select', function ( e, dt, type, indexes ) {
-                    if ( type === 'row' ) {
-                        $('#selectButtonHolder').removeClass('hidden');
-                    }
+                $('.delete').click(function(){
+                    var id = $(this).data('id');
+                    var index = $(this).closest('tr').index();
 
+                    $("#btnDelete").attr("data-id", id);
+                    $("#btnDelete").attr("data-index", index);
                 });
 
-                table.on( 'deselect', function ( e, dt, type, indexes ) {
-                    var count_rows =  table.rows('.selected').data().length;
-                    if(count_rows==0){
-                        $('#selectButtonHolder').addClass('hidden');
-                    }
-                } );
+                $('#btnDelete').click(function(){
+                    //alert($(this).attr('data-id'));\
+                    var id = $(this).attr('data-id');
+                    var index = parseInt($(this).attr('data-index'))+1;
 
-                $('#selectAllButton').click( function () {
-
-                    table.rows({ page: 'current' }).select();
-
-                });
-
-                $('#clearAllButton').click( function () {
-
-                    table.rows({ page: 'current' }).deselect();
-
-                } );
-
-                $('#deleteButton').click( function () {
-                    $("#deleteModal").modal('toggle');
-                });
-
-                $('#confirmDelete').click(function(){
-
-                    var id = $.map(table.rows('.selected').nodes(), function (item) {
-                        return $(item).attr("data-id");
-                    });
-
-                    //console.log(id);
                     $.ajax({
-                        url: "{{route('delete_ferry')}}",
-                        type: "post",
-                        data: {id:id},
-                        success: function(response){
-                            if(response.success)
-                                table.rows('.selected').remove().draw( false );
-                            $("#deleteModal").modal('toggle');
-                            $('#selectButtonHolder').addClass('hidden');
+                        method: "POST",
+                        url: "{{ route('delete_ferry') }}",
+                        data: { id: id }
+                    }).done(function( data ) {
+                        if (data.success == false) {
+                            alert(data.message);
+                        } else {
+                            $('#deleteModal').modal('toggle');
+                            $( 'tr:eq( '+index+' )' ).remove();
                         }
                     });
                 });
-
             });
 
             $('input.global_filter').on( 'keyup click', function () {

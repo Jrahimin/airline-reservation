@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\User;
+use App\User;
 use App\Enumeration\RoleType;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -15,7 +16,8 @@ class UserController extends Controller
     }
 
     public function add() {
-    	return view('user.add');
+        $roles = Role::all();
+    	return view('user.add', compact('roles'));
     }
 
     public function addPost(Request $request) {
@@ -28,18 +30,20 @@ class UserController extends Controller
 
     	$this->validate($request, $rules);
 
-    	User::create([
+    	$user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role' => $request->role,
         ]);
+
+        $user->assignRole($request->role);
 
         return redirect()->route('view_all_user');
     }
 
     public function edit(User $user) {
-    	return view('user.edit', compact('user'));
+        $roles = Role::all();
+    	return view('user.edit', compact('user', 'roles'));
     }
 
     public function editPost(Request $request, User $user) {
@@ -53,9 +57,16 @@ class UserController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->role = $request->role;
-
         $user->save();
+
+       /* $presentRole = $user->getRoleNames()->first();
+        if($presentRole == $request->role)
+            return redirect()->route('view_all_user');
+
+
+        $user->removeRole($presentRole);
+        $user->assignRole($request->role);*/
+
         return redirect()->route('view_all_user');
     }
 
