@@ -16,11 +16,11 @@
 
     Auth::routes();
 
-    Route::get('/home', ['as'=>'home', 'uses' => 'HomeController@index'])->middleware('admin');
+    Route::get('/home', ['as'=>'home', 'uses' => 'HomeController@index']);
 
 
     // Home
-        Route::get('/', 'HomeController@index')->name('index')->middleware('admin');
+        Route::get('/', 'HomeController@index')->name('index');
         Route::get('/trip/search', 'HomeController@search')->name('search_trip');//search available flights
 
 

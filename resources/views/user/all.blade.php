@@ -23,15 +23,6 @@
 		</div>
 	</div>
 
-	<div class="row hidden" id="selectButtonHolder" style="margin-top:10px">
-		<div class="col-md-12">
-			<div class="input-group">
-				<button style="margin-right:5px" class="btn btn-danger" id="deleteButton">Delete Row(s)</button>
-				<button style="margin-right:5px" class="btn btn-default" id="selectAllButton">Select All</button>
-				<button class="btn btn-default" id="clearAllButton">Clear All</button>
-			</div>
-		</div>
-	</div>
 </div>
 
 <div class="box box-primary" style="padding:20px">
@@ -59,7 +50,7 @@
 								<ul class="dropdown-menu">
 									@role('admin')
 										<li><a href="{{route('edit_user',['user'=>$user->id])}}">Edit User</a></li>
-										<li><a href="{{route('delete_user',['user'=>$user->id])}}">Delete</a></li>
+										<li><a class="delete" data-id="{{ $user->id }}" data-toggle="modal" data-target="#deleteModal">Delete</a></li>
 									@endrole
 								</ul>
 							</div>
@@ -77,24 +68,23 @@
 </div>
 @endsection
 
-<div class="modal modal-danger fade" id="deleteModal">
-	<div class="modal-dialog">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span></button>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Delete</h4>
 			</div>
 			<div class="modal-body">
 				<p>Are you sure want to delete?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
-				<button id="confirmDelete" type="button" class="btn btn-outline">Delete</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button id="btnDelete" type="button" class="btn btn-danger">Delete</button>
 			</div>
-		</div>
-	</div>
-</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 @section('additionalJS')
 <script type="text/javascript">
@@ -115,71 +105,35 @@
 
         $(document).ready(function(){
             table = $('.table').DataTable({
-
                 pageLength:10,
-                columnDefs: [{
-                    orderable: false,
-                    className: 'select-checkbox',
-                    targets:   0
-                }],
-                select: {
-                    style:    'multi',
-                    selector: 'td:first-child'
-                },
-                dom:"Bt<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-4'l><'col-sm-8'p>>",
                 buttons: [
                     'copy', 'csv', 'excel', 'print','colvis'
                 ],
-
             });
 
-            table.on( 'select', function ( e, dt, type, indexes ) {
-                if ( type === 'row' ) {
-                    $('#selectButtonHolder').removeClass('hidden');
-                }
+            $('.delete').click(function(){
+                var id = $(this).data('id');
+                var index = $(this).closest('tr').index();
 
+                $("#btnDelete").attr("data-id", id);
+                $("#btnDelete").attr("data-index", index);
             });
 
-            table.on( 'deselect', function ( e, dt, type, indexes ) {
-                var count_rows =  table.rows('.selected').data().length;
-                if(count_rows==0){
-                    $('#selectButtonHolder').addClass('hidden');
-                }
-            } );
+            $('#btnDelete').click(function(){
+                //alert($(this).attr('data-id'));\
+                var id = $(this).attr('data-id');
+                var index = parseInt($(this).attr('data-index'))+1;
 
-            $('#selectAllButton').click( function () {
-
-                table.rows({ page: 'current' }).select();
-
-            });
-
-            $('#clearAllButton').click( function () {
-
-                table.rows({ page: 'current' }).deselect();
-
-            } );
-
-            $('#deleteButton').click( function () {
-                $("#deleteModal").modal('toggle');
-            });
-
-            $('#confirmDelete').click(function(){
-
-                var id = $.map(table.rows('.selected').nodes(), function (item) {
-                    return $(item).attr("data-id");
-                });
-
-                //console.log(id);
                 $.ajax({
-                    url: "{{route('delete_user')}}",
-                    type: "post",
-                    data: {id:id},
-                    success: function(response){
-                        if(response.success)
-                            table.rows('.selected').remove().draw( false );
-                        $("#deleteModal").modal('toggle');
-                        $('#selectButtonHolder').addClass('hidden');
+                    method: "POST",
+                    url: "{{ route('delete_user') }}",
+                    data: { id: id }
+                }).done(function( data ) {
+                    if (data.success == false) {
+                        alert(data.message);
+                    } else {
+                        $('#deleteModal').modal('toggle');
+                        $( 'tr:eq( '+index+' )' ).remove();
                     }
                 });
             });
