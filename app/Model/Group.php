@@ -10,7 +10,7 @@ class Group extends Model
 
     public function permissions()
     {
-        return $this->belongsToMany('Spatie\Permission\Models\Permission');
+        return $this->hasMany('Spatie\Permission\Models\Permission');
     }
 
 }

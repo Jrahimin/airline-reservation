@@ -15,7 +15,7 @@
 
 			<div class="col-md-6">
 				<div class="pull-right">
-					@role('admin')
+					@role('Admin')
 					<a href="{{route('add_ferry')}}" class="btn btn-primary hidden-sm hidden-xs" title="New Item"><span class=""><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Airplane</span></a>
 					@endrole
 				</div>
@@ -48,7 +48,7 @@
 									<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="pe-7s-pen"></i>
 										<span class="caret"></span></button>
 									<ul class="dropdown-menu">
-										@role('admin')
+										@role('Admin')
 										<li><a href="{{ route('edit_ferry', ['ferry' => $airplane->id]) }}">Edit</a></li>
 										<li><a class="delete" data-id="{{ $airplane->id }}" data-toggle="modal" data-target="#deleteModal">Delete</a></li>
 										@endrole

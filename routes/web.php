@@ -18,8 +18,8 @@
 
 
 
-        Route::get('/home', ['as'=>'home', 'uses' => 'HomeController@index'])->middleware('permission:search available flights');
-
+        Route::get('/home', ['as'=>'home', 'uses' => 'HomeController@index']);
+//->middleware('permission:search available flights')
 
         // Home
         Route::get('/', 'HomeController@index')->name('index')->middleware('permission:search available flights');

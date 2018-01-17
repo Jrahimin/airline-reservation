@@ -11,7 +11,7 @@
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                <label for="name" class="col-md-4 control-label">Name</label>
+                                <label for="name" class="col-md-2 control-label">Role Name</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
@@ -24,19 +24,41 @@
                                 </div>
                             </div>
 
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class = "pe-7s-info"></i>Permissions and Access<br></h3>
+                            </div>
+
+
+                            <div style="padding: 30px;">
                             <div class="form-group">
-                                <label for="city_name" class="col-md-4 control-label">Permissions</label>
 
                                 <div class="col-md-6">
-                                    @foreach($permissions as $permission)
-                                        <input type="checkbox" name="permission[]" value="{{$permission->name}}">
-                                        {{$permission->name}}<br>
+                                    @foreach($groups as $group)
+                                        <input type="checkbox" name="permissions_group[]" value="{{$group->name}}" id="{{$group->id}}" class="module_checkboxes" onchange="groupSelect(this);">
+                                        <label><span></span></label>
+                                        <span class="text-success">{{$group->name}}</span>
+
+                                        <li style="list-style: none">
+                                            <ul class="list-unstyled list-permission-actions">
+                                                @foreach($group->permissions as $permission)
+                                                    <li>
+                                                        <input type="checkbox" name="permissions[]" value="{{$permission->name}}"  class="permissions_group_{{$group->id}}">
+                                                        <span class="text-info">{{$permission->name}}</span>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </li>
+
+
+                                        {{--<input type="checkbox" name="permission_group[]" value="{{$permission->name}}">
+                                        {{$permission->name}}<br>--}}
                                     @endforeach
                                 </div>
                             </div>
+                            </div>
 
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
+                                <div class="col-md-6 col-md-offset-1">
                                     <button type="submit" class="btn btn-primary">
                                         Add
                                     </button>
@@ -50,3 +72,14 @@
         </div>
     </div>
 @endsection
+
+<script>
+    function groupSelect(checkBox){
+        selectClass = ".permissions_group_"+checkBox.id;
+        if(checkBox.checked == true){
+            $(selectClass).prop('checked', 'checked');
+        }else{
+            $(selectClass).prop('checked', '');
+        }
+    }
+</script>

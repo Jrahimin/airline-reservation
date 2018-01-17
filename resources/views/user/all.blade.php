@@ -16,7 +16,7 @@
 
 		<div class="col-md-6">
 			<div class="pull-right">
-				@role('admin')
+				@role('Admin')
 					<a href="{{route('add_user')}}" class="btn btn-primary hidden-sm hidden-xs" title="New Item"><span class=""><i class="fa fa-plus-circle" aria-hidden="true"></i> Add User</span></a>
 				@endrole
 			</div>
@@ -36,11 +36,14 @@
 					<th>Actions</th>
 					<th>Name</th>
 					<th>Email</th>
-					<th>User Type</th>
+					<th>Assigned Role</th>
 				</tr>
 				</thead>
 				<tbody>
 				@foreach($users as $user)
+					<?php
+                    $roleName = $user->getRoleNames()->first();
+					?>
 					<tr data-id="{{ $user->id }}">
 						<td></td>
 						<td>
@@ -48,7 +51,7 @@
 								<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="pe-7s-pen"></i>
 									<span class="caret"></span></button>
 								<ul class="dropdown-menu">
-									@role('admin')
+									@role('Admin')
 										<li><a href="{{route('edit_user',['user'=>$user->id])}}">Edit User</a></li>
 										<li><a class="delete" data-id="{{ $user->id }}" data-toggle="modal" data-target="#deleteModal">Delete</a></li>
 									@endrole
@@ -58,7 +61,7 @@
 
 						<td>{{ $user->name }}</td>
 						<td>{{ $user->email }}</td>
-						<td>@role('admin') Admin @endrole</td>
+						<td>{{ $roleName }}</td>
 					</tr>
 				@endforeach
 				</tbody>

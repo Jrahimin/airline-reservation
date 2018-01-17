@@ -11,7 +11,7 @@ use App\Enumeration\RoleType;
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-    <title>{{ $settings['company_name'] }} admin</title>
+    <title>{{ $settings['company_name'] }} Admin</title>
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
@@ -142,7 +142,7 @@ use App\Enumeration\RoleType;
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 {{--<li class="header">MAIN NAVIGATION</li>--}}
-                @role('admin')
+                @role('Admin')
                     <li><a href="{{route('view_all_user')}}"><i class="fa fa-users" aria-hidden="true"></i><span>Users</span></a></li>
                     <li><a href="{{route('view_all_port')}}"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i><span>Airport</span></a></li>
                     <li><a href="{{route('view_all_passenger_type')}}"><i class="fa fa-street-view" aria-hidden="true"></i><span>Passenger Type</span></a></li>
