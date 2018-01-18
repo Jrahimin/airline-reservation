@@ -71,8 +71,8 @@ class TicketPrint
             'module_height' => 1 // height of a single module in points
         );
 
-        $pdf->write2DBarcode($ticket->order->id, 'QRCODE,H', 150, 20, 45, 60, $style, 'N');
 
+        $pdf->write2DBarcode($ticket->order->id, 'QRCODE,H', 150, 20, 45, 60, $style, 'N');
         $pdf->SetXY(5, 35);
         $pdf->SetFont('helvetica', '', 12);
         $pdf->Cell(130, 55, 'Printed On: '.$ldate.' ', 0, false, 'R', 0, '', 0, false, 'T', 'M' );
@@ -245,5 +245,4 @@ class TicketPrint
         return $pdf;
     }
 }
-
 ?>
