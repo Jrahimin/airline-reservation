@@ -1,36 +1,28 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-    <title>Roles</title>
+@section('content')
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+    <div class="box box-primary" style="padding:40px">
+        <div class = "row">
+            <div class="col-md-12">
+            <h1>Permissions </h1>
+            <ul>
+                @foreach($permissions as $permission)
+                    <li>{{$permission->name}}</li>
+                @endforeach
+            </ul>
+            <h1>Users</h1>
+            @if(!$users->isEmpty())
+                <ul>
+                    @foreach($users as $user)
+                        <li>{{$user->name}}</li>
+                    @endforeach
+                </ul>
+            @else
+                <span style="margin-left: 20px;">This role is not assigned to any user</span>
+            @endif
+            </div>
+        </div>
+    </div>
 
-    <!-- Styles -->
-
-</head>
-<body>
-
-<h1>Permissions </h1>
-   <ul>
-       @foreach($permissions as $permission)
-           <li>{{$permission->name}}</li>
-           @endforeach
-   </ul>
-<h1>Users</h1>
-   <ul>
-       @foreach($users as $user)
-           <li>{{$user->name}}</li>
-       @endforeach
-   </ul>
-
-
-
-
-
-</body>
-</html>
+@endsection

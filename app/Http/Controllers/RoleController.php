@@ -32,7 +32,6 @@ class RoleController extends Controller
         }
 
         return redirect()->route('view_all_roles');
-
     }
     public function viewRoles()
     {
@@ -76,16 +75,15 @@ class RoleController extends Controller
         $users = User::role($role->name)->get();
         $permissions=Role::findByName($role->name)->permissions;
         return view('roles.role_details',compact('users','permissions'));
-
     }
 
     public function editRole($id)
     {
+        $groups = Group::all();
         $role=Role::find($id);
-        $users = User::role($role->name)->get();
         $permissionsOfRole=Role::findByName($role->name)->permissions;
         $allPermissions=Permission::all();
-        return view('roles.role_edit',compact('allPermissions','role','permissionsOfRole','users'));
+        return view('roles.role_edit',compact('allPermissions','role','permissionsOfRole','users', 'groups'));
     }
 
     public function editRoleStore(Request $request,Role $role)

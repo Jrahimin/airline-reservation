@@ -1,55 +1,85 @@
-    <!doctype html>
-    <html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Roles</title>
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Edit Role</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" method="post" action="{{route('role_edit_store', ['role'=>$role])}}">
+                            {{ csrf_field() }}
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                <label for="name" class="col-md-2 control-label">Role Name</label>
 
-        <!-- Styles -->
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control" name="name" value="{{ $role->name }}">
 
-    </head>
-    <body>
-    <h1>Users</h1>
-    <ul>
-        @foreach($users as $user)
-            <li>{{$user->name}}     <form action="{{route('remove_role_user',['roleId'=>$role->id])}}" method="post">
-                    <input type="hidden" value="{{$user->id}}" name="user"></input>
-                    <button>Remove User</button>
-                </form></li>
-            @endforeach
-    </ul>
+                                    @if ($errors->has('name'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class = "pe-7s-info"></i>Permissions and Access<br></h3>
+                            </div>
 
 
-        <form method="post" action="{{route('role_edit_store', ['role'=>$role])}}">
-            {{csrf_field()}}
-            <div >
-                <div >
-                    <label>Role</label>
-                    <input name="name" type="text" value="{{$role->name}}">
-                    <br><br>
-                        @foreach($allPermissions as $permission)
-                            <input @if($permissionsOfRole->contains($permission)) checked="checked" @endif
-                                   type="checkbox" name="permission[]" value="{{$permission->name}}">
-                            {{$permission->name}}<br>
-                        @endforeach
+                            <div style="padding: 30px;">
+                                <div class="form-group">
 
-                        <button>Save</button>
+                                    <div class="col-md-6">
+                                        @foreach($groups as $group)
+                                            <input type="checkbox" name="permissions_group[]" value="{{$group->name}}" id="{{$group->id}}" class="module_checkboxes" onchange="groupSelect(this);">
+                                            <label><span></span></label>
+                                            <span class="text-success">{{$group->name}}</span>
+
+                                            <li style="list-style: none">
+                                                <ul class="list-unstyled list-permission-actions">
+                                                    @foreach($group->permissions as $permission)
+                                                        <li>
+                                                            <input @if($permissionsOfRole->contains($permission)) checked="checked" @endif type="checkbox" name="permissions[]" value="{{$permission->name}}"  class="permissions_group_{{$group->id}}">
+                                                            <span class="text-info">{{$permission->name}}</span>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+
+
+                                            {{--<input type="checkbox" name="permission_group[]" value="{{$permission->name}}">
+                                            {{$permission->name}}<br>--}}
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-1">
+                                    <button type="submit" class="btn btn-primary">
+                                        Add
+                                    </button>
+                                    <a class="btn btn-default" href="{{ route('view_all_roles') }}">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-
-
                 </div>
+            </div>
+        </div>
+    </div>
+@endsection
 
-
-    </form>
-
-
-
-
-
-    </body>
-    </html>
+<script>
+    function groupSelect(checkBox){
+        selectClass = ".permissions_group_"+checkBox.id;
+        if(checkBox.checked == true){
+            $(selectClass).prop('checked', 'checked');
+        }else{
+            $(selectClass).prop('checked', '');
+        }
+    }
+</script>

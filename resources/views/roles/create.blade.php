@@ -62,7 +62,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Add
                                     </button>
-                                    <a class="btn btn-default" href="{{ route('view_all_port') }}">Cancel</a>
+                                    <a class="btn btn-default" href="{{ route('view_all_roles') }}">Cancel</a>
                                 </div>
                             </div>
                         </form>
