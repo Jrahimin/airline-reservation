@@ -89,21 +89,7 @@ class RoleController extends Controller
 
     public function editRoleStore(Request $request,Role $role)
     {
-<<<<<<< HEAD
-      $role=Role::findById($role->id);
-      $countPermission = Permission::all()->count();
-      $permissionsOfRole=Role::findByName($role->name)->permissions;
-      foreach ($permissionsOfRole as $permission)
-      {
-          $role->revokePermissionTo($permission);
-      }
 
-        for($i=0;$i<$countPermission;$i++)
-        {
-            if(!empty($request->permissions[$i]))
-            {
-                    $role->givePermissionTo($request->permissions[$i]);
-=======
         $countPermission = Permission::all()->count();
         $role=Role::findById($role->id);
         $permissionsOfRole=Role::findByName($role->name)->permissions;
@@ -117,7 +103,6 @@ class RoleController extends Controller
             if(!empty($request->permissions[$i]))
             {
                 $role->givePermissionTo($request->permissions[$i]);
->>>>>>> 6a6f82785228cfe1810b9c7e2f3d9ca8332000ec
             }
         }
         $role->name=$request->name;
