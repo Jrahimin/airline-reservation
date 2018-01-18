@@ -59,13 +59,13 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->save();
 
-       /* $presentRole = $user->getRoleNames()->first();
+       $presentRole = $user->getRoleNames()->first();
         if($presentRole == $request->role)
             return redirect()->route('view_all_user');
 
-
-        $user->removeRole($presentRole);
-        $user->assignRole($request->role);*/
+        if(!empty($presentRole))
+            $user->removeRole($presentRole);
+        $user->assignRole($request->role);
 
         return redirect()->route('view_all_user');
     }
