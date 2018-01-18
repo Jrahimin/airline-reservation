@@ -1,8 +1,4 @@
-<?php
-use App\Enumeration\RoleType;
-?>
-
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
 <head>
     <meta charset="utf-8">
@@ -98,11 +94,11 @@ use App\Enumeration\RoleType;
                             {{--</li>--}}
 
                             <!-- Menu Body -->
-                            <!-- <li class="user-body">
+                                <!-- <li class="user-body">
 
-                            </li> -->
+                                </li> -->
 
-                            <!-- Menu Footer-->
+                                <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
                                     <a href="{{ route('edit_user',["user"=>\Illuminate\Support\Facades\Auth::User()->id]) }}" class="btn btn-default btn-flat">Profile</a>
@@ -143,14 +139,14 @@ use App\Enumeration\RoleType;
             <ul class="sidebar-menu" data-widget="tree">
                 {{--<li class="header">MAIN NAVIGATION</li>--}}
                 @role('Admin')
-                    <li><a href="{{route('view_all_user')}}"><i class="fa fa-users" aria-hidden="true"></i><span>Users</span></a></li>
-                    <li><a href="{{route('view_all_port')}}"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i><span>Airport</span></a></li>
-                    <li><a href="{{route('view_all_passenger_type')}}"><i class="fa fa-street-view" aria-hidden="true"></i><span>Passenger Type</span></a></li>
-                    <li><a href="{{route('view_all_ferry')}}"><i class="fa fa-plane" aria-hidden="true"></i><span>Airplane</span></a></li>
-                    <li><a href="{{route('view_all_trip')}}"><i class="fa fa-tripadvisor" aria-hidden="true"></i><span>Trip</span></a></li>
-                    <li><a href="{{route('all_order')}}"><i class="fa fa-first-order" aria-hidden="true"></i><span>Order</span></a></li>
-                    <li><a href="{{route('all_ticket')}}"><i class="fa fa-ticket" aria-hidden="true"></i><span>Ticket</span></a></li>
-                    <li><a href="{{route('view_all_roles')}}"><i class="fa fa-cog" aria-hidden="true"></i><span>Role</span></a></li>
+                <li><a href="{{route('view_all_user')}}"><i class="fa fa-users" aria-hidden="true"></i><span>Users</span></a></li>
+                <li><a href="{{route('view_all_port')}}"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i><span>Airport</span></a></li>
+                <li><a href="{{route('view_all_passenger_type')}}"><i class="fa fa-street-view" aria-hidden="true"></i><span>Passenger Type</span></a></li>
+                <li><a href="{{route('view_all_ferry')}}"><i class="fa fa-plane" aria-hidden="true"></i><span>Airplane</span></a></li>
+                <li><a href="{{route('view_all_trip')}}"><i class="fa fa-tripadvisor" aria-hidden="true"></i><span>Trip</span></a></li>
+                <li><a href="{{route('all_order')}}"><i class="fa fa-first-order" aria-hidden="true"></i><span>Order</span></a></li>
+                <li><a href="{{route('all_ticket')}}"><i class="fa fa-ticket" aria-hidden="true"></i><span>Ticket</span></a></li>
+                <li><a href="{{route('view_all_roles')}}"><i class="fa fa-cog" aria-hidden="true"></i><span>Role</span></a></li>
                 @endrole
             </ul>
         </section>

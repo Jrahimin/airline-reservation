@@ -2,7 +2,6 @@
 namespace App\library;
 use App\Model\Ticket;
 use DB;
-use App\library\CustomPdf;
 
 class TicketPrint
 {
@@ -245,4 +244,5 @@ class TicketPrint
         return $pdf;
     }
 }
+
 ?>

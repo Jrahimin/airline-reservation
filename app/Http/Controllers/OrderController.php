@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Enumeration\RoleType;
@@ -215,6 +214,7 @@ class OrderController extends Controller
 
             }
         }
+        ob_end_clean();
         $pdf->Output('ticket.pdf');
     }
 
