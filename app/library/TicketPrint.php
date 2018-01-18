@@ -18,7 +18,7 @@ class TicketPrint
 
         $pdf->AddPage();
 
-        $image_file = url("images/company_logo/2380542d-25f6-4a2d-92c2-4372a6c4af1a.jpg");
+        $image_file = url("images/company_logo/company_logo.jpg");
         //$qrcode_file = url('/qrcode.png');
 
         $pdf->SetXY(26, 17);
