@@ -84,19 +84,19 @@
 
     //TicketObserveController
         Route::get('/ticket/all', 'TicketObserveController@getAllTicket')->name('all_ticket')->middleware('permission:view all tickets');
-        Route::get('/ticket/view_order/{ticket}', 'TicketObserveController@viewOrder')->name('view_ticket_order')->middleware('permission:view single order');
-        Route::post('/ticket/delete', 'TicketObserveController@delete')->name('delete_ticket')->middleware('company_user:admin');
+        Route::get('/ticket/view_order/{ticket}', 'TicketObserveController@viewOrder')->name('view_ticket_order')->middleware('permission:view order');
+        Route::post('/ticket/delete', 'TicketObserveController@delete')->name('delete_ticket')->middleware('permission:delete tickets');
 
     //OrderController
-        Route::get('/order/all', 'OrderController@allOrder')->name('all_order')->middleware('permission:view all order');
+        Route::get('/order/all', 'OrderController@allOrder')->name('all_order')->middleware('permission:view order');
         Route::post('/order/delete', 'OrderController@delete')->name('delete_order')->middleware('permission:delete order');
-        Route::get('/order/view_ticket/{order}', 'TicketObserveController@getTicketForOrder')->name('view_ticket')->middleware('permission:view single order');
+        Route::get('/order/view_ticket/{order}', 'TicketObserveController@getTicketForOrder')->name('view_ticket')->middleware('permission:view order') ;
         Route::get('/order/print/{order}', 'OrderController@orderPrint')->name('order_print')->middleware('permission:print ticket');
         Route::get('/trip/view_order/{trip}', 'OrderController@viewTripOrder')->name('view_order')->middleware('permission:view all order');
 
     //SettingsController
         route::get('/settings/edit','SettingsController@GetSettings')->name('change_settings')->middleware('permission:save settings');
-        route::post('/settings/save','SettingsController@SaveSettings')->name('save_settings');
+        route::post('/settings/save','SettingsController@SaveSettings')->name('save_settings')->middleware('permission:save settings');
 
 
     //promona routes
