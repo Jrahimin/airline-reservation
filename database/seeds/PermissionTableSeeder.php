@@ -30,10 +30,8 @@ class PermissionTableSeeder extends Seeder
         $permission3 = Permission::create(['name' => 'edit planes','group_id'=>'1']);
         $permission4=Permission::create(['name' => 'delete planes','group_id'=>'1']);
         $permission5 = Permission::create(['name' => 'search available flights','group_id'=>'2']);
-        $permission6=Permission::create(['name' => 'view all order','group_id'=>'3']);
-        $permission7= Permission::create(['name' => 'view single order','group_id'=>'3']);
+        $permission6=Permission::create(['name' => 'view order','group_id'=>'3']);
         $permission8=Permission::create(['name' => 'delete order','group_id'=>'3']);
-        $permission9 = Permission::create(['name' => 'print order','group_id'=>'3']);
         $permission10=Permission::create(['name' => 'view all passenger types','group_id'=>'4']);
         $permission11= Permission::create(['name' => 'add passenger types','group_id'=>'4']);
         $permission12=Permission::create(['name' => 'edit passenger types','group_id'=>'4']);
@@ -42,7 +40,6 @@ class PermissionTableSeeder extends Seeder
         $permission15= Permission::create(['name' => 'add cities','group_id'=>'5']);
         $permission16=Permission::create(['name' => 'edit cities','group_id'=>'5']);
         $permission17= Permission::create(['name' => 'delete cities','group_id'=>'5']);
-        $permission18=Permission::create(['name' => 'store passenger details','group_id'=>'6']);
         $permission19=Permission::create(['name' => 'store ticket','group_id'=>'6']);
         $permission20= Permission::create(['name' => 'print ticket','group_id'=>'6']);
         $permission21=Permission::create(['name' => 'view all tickets','group_id'=>'6']);
