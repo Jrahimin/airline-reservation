@@ -14,7 +14,7 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         //plane,flight,order,passenger,City,ticket,user,role
-        $group1=Group::create(['name'=>'Plane']);
+        /*$group1=Group::create(['name'=>'Plane']);
         $group2=Group::create(['name'=>'Flight']);
         $group3=Group::create(['name'=>'Order']);
         $group4=Group::create(['name'=>'Passenger']);
@@ -58,6 +58,7 @@ class PermissionTableSeeder extends Seeder
         $permission34= Permission::create(['name' => 'assign roles','group_id'=>'8']);
         $permission35=Permission::create(['name' => 'revoke roles','group_id'=>'8']);
         $permission36=Permission::create(['name' => 'view all roles','group_id'=>'8']);
-        $permission37=Permission::create(['name'=>'save settings','group_id'=>'9']);
+        $permission37=Permission::create(['name'=>'save settings','group_id'=>'9']);*/
+        $permission6=Permission::create(['name' => 'view order','group_id'=>'3']);
     }
 }

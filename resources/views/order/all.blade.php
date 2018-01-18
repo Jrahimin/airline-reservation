@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('additionalCSS')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}">
-@stop
-
 @section('content')
     <div class="filter-box">
 
