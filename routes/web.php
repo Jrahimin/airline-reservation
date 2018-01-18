@@ -27,7 +27,7 @@
 
 
         // Ticket Booking
-        Route::get('/booking/passenger-details', 'TicketBookingController@passengerDetails')->name('passenger_details')->middleware('permission:book ticket');
+        Route::get('/booking/passenger-details', 'TicketBookingController@passengerDetails')->name('passenger_details')->middleware('permission:store ticket');
 
     // Users
         Route::get('/user/all', 'UserController@all')->name('view_all_user')->middleware('permission:view all user');
@@ -79,8 +79,8 @@
 
     //JR Routes...
     //TicketBookingController
-        Route::post('/booking/ticket_store', 'TicketBookingController@storeTicket')->name('ticketStore')->middleware('permission:book ticket');
-        Route::get('/booking/success', 'TicketBookingController@storeTicket')->name('success')->middleware('permission:book ticket');
+        Route::post('/booking/ticket_store', 'TicketBookingController@storeTicket')->name('ticketStore')->middleware('permission:store ticket');
+        Route::get('/booking/success', 'TicketBookingController@storeTicket')->name('success')->middleware('permission:store ticket');
 
     //TicketObserveController
         Route::get('/ticket/all', 'TicketObserveController@getAllTicket')->name('all_ticket')->middleware('permission:view all tickets');
