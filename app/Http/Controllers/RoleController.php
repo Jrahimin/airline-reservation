@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 use App\Model\Group;
 use App\User;
-use Spatie\Permission\Models\Role;
+use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
-use Illuminate\Http\Request;;
+;
 
 class RoleController extends Controller
 {
@@ -88,20 +89,19 @@ class RoleController extends Controller
 
     public function editRoleStore(Request $request,Role $role)
     {
-      $role=Role::findById($role->id);
-      $permissionsOfRole=Role::findByName($role->name)->permissions;
-      foreach ($permissionsOfRole as $permission)
-      {
-          $role->revokePermissionTo($permission);
-      }
-
-        for($i=0;$i<37;$i++)
+        $countPermission = Permission::all()->count();
+        $role=Role::findById($role->id);
+        $permissionsOfRole=Role::findByName($role->name)->permissions;
+        foreach ($permissionsOfRole as $permission)
         {
-            if(!empty($request->permission[$i]))
+            $role->revokePermissionTo($permission);
+        }
+
+        for($i=0;$i<$countPermission;$i++)
+        {
+            if(!empty($request->permissions[$i]))
             {
-                $hasPermission=$role->hasPermissionTo($request->permission[$i]);
-                if($hasPermission==false)
-                    $role->givePermissionTo($request->permission[$i]);
+                $role->givePermissionTo($request->permissions[$i]);
             }
         }
         $role->name=$request->name;
