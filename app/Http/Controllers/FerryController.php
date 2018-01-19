@@ -12,11 +12,11 @@ class FerryController extends Controller
 {
     public function all() {
         $airplanes = Ferry::paginate(10);
-    	return view('ferry.all', compact('airplanes'));
+    	return view('airplane.all', compact('airplanes'));
     }
 
     public function add() {
-    	return view('ferry.add');
+    	return view('airplane.add');
     }
 
     public function addPost(Request $request) {
@@ -39,7 +39,7 @@ class FerryController extends Controller
         $file = $request->file('logo');
         $extension = $file->getClientOriginalExtension();
         $filename = (string)Uuid::generate(4).".".$extension;
-    	$destinationPath = 'images/ferry_logo';
+    	$destinationPath = 'images/airplane_logo';
     	$image = $file->move($destinationPath, $filename);
 
     	Ferry::create([
@@ -51,11 +51,11 @@ class FerryController extends Controller
             'status' => $active,
         ]);
 
-        return redirect()->route('view_all_ferry');
+        return redirect()->route('view_all_airplane');
     }
 
     public function edit(Ferry $airplane) {
-    	return view('ferry.edit', compact('airplane'));
+    	return view('airplane.edit', compact('airplane'));
     }
 
     public function editPost(Request $request, Ferry $airplane) {
@@ -78,7 +78,7 @@ class FerryController extends Controller
     		$file = $request->file('logo');
 	        $extension = $file->getClientOriginalExtension();
 	        $filename = (string)Uuid::generate(4).".".$extension;
-	    	$destinationPath = 'images/ferry_logo';
+	    	$destinationPath = 'images/airplane_logo';
 	    	$image = $file->move($destinationPath, $filename);
 
             $airplane->image_url = $destinationPath.'/'.$filename;
@@ -91,7 +91,7 @@ class FerryController extends Controller
         $airplane->status = $active;
         $airplane->save();
 
-    	return redirect()->route('view_all_ferry');
+    	return redirect()->route('view_all_airplane');
     }
 
     public function delete(Request $request) {

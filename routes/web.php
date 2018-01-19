@@ -58,12 +58,12 @@
 
     // Ferry
 
-       Route::get('/airplane/all', 'FerryController@all')->name('view_all_ferry')->middleware('permission:view all planes');
-       Route::get('/airplane/add', 'FerryController@add')->name('add_ferry')->middleware('permission:add planes');
-       Route::post('/airplane/add', 'FerryController@addPost')->name('add_ferry_post')->middleware('permission:add planes');
-       Route::get('/airplane/edit/{airplane}', 'FerryController@edit')->name('edit_ferry')->middleware('permission:edit planes');
-       Route::post('/airplane/edit/{airplane}', 'FerryController@editPost')->name('edit_ferry_post')->middleware('permission:edit planes');
-       Route::post('/airplane/delete', 'FerryController@delete')->name('delete_ferry')->middleware('permission:delete planes');
+       Route::get('/airplane/all', 'FerryController@all')->name('view_all_airplane')->middleware('permission:view all planes');
+       Route::get('/airplane/add', 'FerryController@add')->name('add_airplane')->middleware('permission:add planes');
+       Route::post('/airplane/add', 'FerryController@addPost')->name('add_airplane_post')->middleware('permission:add planes');
+       Route::get('/airplane/edit/{airplane}', 'FerryController@edit')->name('edit_airplane')->middleware('permission:edit planes');
+       Route::post('/airplane/edit/{airplane}', 'FerryController@editPost')->name('edit_airplane_post')->middleware('permission:edit planes');
+       Route::post('/airplane/delete', 'FerryController@delete')->name('delete_airplane')->middleware('permission:delete planes');
 
 
 

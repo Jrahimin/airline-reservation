@@ -16,7 +16,7 @@
 			<div class="col-md-6">
 				<div class="pull-right">
 					@role('Admin')
-					<a href="{{route('add_ferry')}}" class="btn btn-primary hidden-sm hidden-xs" title="New Item"><span class=""><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Airplane</span></a>
+					<a href="{{route('add_airplane')}}" class="btn btn-primary hidden-sm hidden-xs" title="New Item"><span class=""><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Airplane</span></a>
 					@endrole
 				</div>
 			</div>
@@ -49,7 +49,7 @@
 										<span class="caret"></span></button>
 									<ul class="dropdown-menu">
 										@role('Admin')
-										<li><a href="{{ route('edit_ferry', ['ferry' => $airplane->id]) }}">Edit</a></li>
+										<li><a href="{{ route('edit_airplane', ['ferry' => $airplane->id]) }}">Edit</a></li>
 										<li><a class="delete" data-id="{{ $airplane->id }}" data-toggle="modal" data-target="#deleteModal">Delete</a></li>
 										@endrole
 									</ul>
@@ -136,7 +136,7 @@
 
                     $.ajax({
                         method: "POST",
-                        url: "{{ route('delete_ferry') }}",
+                        url: "{{ route('delete_airplane') }}",
                         data: { id: id }
                     }).done(function( data ) {
                         if (data.success == false) {

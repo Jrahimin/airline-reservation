@@ -6,9 +6,9 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-primary">
-                <div class="panel-heading">Edit Ferry</div>
+                <div class="panel-heading">Edit Airplane</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('edit_ferry_post', ['ferry' => $airplane->id]) }}" enctype="multipart/form-data">
+                    <form class="form-horizontal" method="POST" action="{{ route('edit_airplane_post', ['ferry' => $airplane->id]) }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -99,7 +99,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Save
                                 </button>
-                                <a class="btn btn-default" href="{{ route('view_all_ferry') }}">Cancel</a>
+                                <a class="btn btn-default" href="{{ route('view_all_airplane') }}">Cancel</a>
                             </div>
                         </div>
                     </form>
