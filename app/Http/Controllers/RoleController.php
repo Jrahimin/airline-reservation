@@ -72,10 +72,11 @@ class RoleController extends Controller
 
     public function viewRoleDetails($id)
     {
+        $groups = Group::all();
         $role=Role::find($id);
         $users = User::role($role->name)->get();
         $permissions=Role::findByName($role->name)->permissions;
-        return view('roles.role_details',compact('users','permissions'));
+        return view('roles.role_details',compact('users','permissions', 'groups'));
     }
 
     public function editRole($id)
